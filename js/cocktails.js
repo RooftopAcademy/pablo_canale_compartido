@@ -7,6 +7,9 @@ class Board {
         this.actualUser = new User();
         this.cocktails = [];
     }
+    getCocktails() {
+        return this.cocktails;
+    }
     getUsers() {
         return this.users;
     }
@@ -28,7 +31,6 @@ class Board {
         const cocktailsToShow = this.cocktails.filter(
             function (cocktail) {
                 const favorites = this.actualUser.getFavorites();
-
                 // La funcion find me devuelve un "Cocktail" si lo encuentra, y sino un undefined
                 const favFound = favorites.find(
                     function (fav) {
@@ -142,11 +144,14 @@ class UserInterface {
         let back = document.createElement('div');
         back.classList.add('card-back', 'text-center');
 
+        // adding the ingredients to the card
         let ingredients = cocktail.ingredients;
         textCenter.innerHTML += `<h1>Ingredients</h1>`
         for (let i = 0; i < ingredients.length; i++)
-            textCenter.innerHTML += `<p>${ingredients[i]}</p>`;
-        console.log(cocktail.getName())
+            textCenter.innerHTML += `<p>${ingredients[i]}</p>`
+        // this is the star for favorites drinks    
+        textCenter.innerHTML += `<span id="${cocktail.getName()} class="star material-icons-outlined">star</span>`;
+
         back.innerHTML += `<h1>${cocktail.getName()}</h1>`;
 
         // I will add images from the inputs in form-cocktail //
@@ -156,7 +161,7 @@ class UserInterface {
         cardContainer.appendChild(front);
         cardContainer.appendChild(back);
         card.appendChild(cardContainer);
-
+        // Here I put it in the container in the html
         container.appendChild(card);
 
 
@@ -186,31 +191,33 @@ document.getElementById('login-form').addEventListener('submit', function (e) {
         let pass = document.getElementById('pass').value;
         let user = new RegisteredUser(name, pass);
         board.addUser(user);
-        alert("registrado correctamente");
+        alert("Congratulations! You are registered");
     }
 
     if (e.submitter.id == 'btn btn-login') {
-        console.log("entor")
+
         let name = document.getElementById('username').value;
         let pass = document.getElementById('pass').value;
         for (let i = 0; i < board.getUsers().length; i++) {
             let user = board.getUsers()[i];
-            if (user.getName() == name)
+            if (user.getName() == name) {
                 if (user.getPass() == pass) {
-                    console.log(user);
                     board.setActualUser(user);
-                    console.log(board.getActualUser())
-                    document.getElementById('form-cocktail').classList.toggle("hidden-container")
-                    alert(`Bienvenido ${user.getName()}!`)
+                    //SE VE CUANDO EL USUARIO ESTA LOGUEADO, AHORA ESTA VISIBLE PPRACTICAR
+                    //document.getElementById('form-cocktails').classList.toggle("hidden-container");
+                    alert(`Welcome ${user.getName()}!`);
                 }
+                else
+                    alert("Bad Password");
+            }
+            else
+                alert("There is no user with that name");
         }
-
     }
-
 })
 
 // listener for form-cocktail, add a cocktail with information provided by the inputs//
-document.getElementById('form-cocktail').addEventListener('submit', function (e) {
+document.getElementById('form-cocktails').addEventListener('submit', function (e) {
     e.preventDefault();
     let name = document.getElementById('cocktailName').value;
     let ingredients = document.getElementById('ingredients').value;
@@ -223,13 +230,21 @@ document.getElementById('form-cocktail').addEventListener('submit', function (e)
 let stars = document.getElementsByClassName('star');
 for (let i = 0; i < stars.length; i++) {
     stars[i].addEventListener('click', function (e) {
-        console.log(e)
-
-        //falta ver si el usuario esta registrado
-        board.getActualUser().addFavorite();
-        //document.getElementsById()//
+        if (board.getActualUser() instanceof RegisteredUser) {
+            //with this I take the product name from the card
+            let productName = e.path[4].getElementsByClassName('card-back')[0].getElementsByTagName('h1')[0].innerText;
+            //search for cocktails with that name in the board
+            let element = 0;
+            while (productName != board.getCocktails()[element].getName()) {
+                element++;
+            }
+            board.getActualUser().addFavorite(board.getCocktails()[element]);
+            alert("Added to favorites!");
+            console.log(board.getActualUser().getFavorites())
+        }
+        else
+            alert("You should be registered for favorites option");
     })
-
 }
 
 
@@ -239,5 +254,5 @@ const board = new Board();
 
 
 //Just for practice// 
-let negroni = new Cocktail('Negroni', ['Campario', 'Gin', 'Rosso', 'Orange Dash']);
+let negroni = new Cocktail('Pina Colada', ['White Run', 'Coconut Milk', 'Pineaple Juice', 'Crushed Ice']);
 let oldFashioned = new Cocktail('Old Fashion', ['Whisky', 'Sugar', 'Angostura', 'Orange Dash']);
