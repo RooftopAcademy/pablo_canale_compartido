@@ -1,0 +1,156 @@
+
+* {
+    text-decoration: none;
+    list-style: none;
+}
+
+
+
+body{
+    font-family: 'Montserrat';
+    font-size: large;
+    color: #c5a47e;
+    background: black url(../img/whiskygray.jpg) fixed no-repeat;
+    background-size: contain;
+    background-position-y: center;
+    background-position-x: center;
+}
+
+.text-center{
+    text-align: center;
+}
+
+
+/*********** NAV ************/
+
+nav, nav .cocktail {
+    font-size: xxx-large;
+}
+nav {
+    background-color: #272727;
+
+}
+nav .arrow-down span, nav .arrow-up span{
+    font-size: 60px;
+
+}
+nav li{
+    color: #606060;
+    background-color: #272727; 
+}
+nav a:hover li {
+    border-left: 4px solid #c5a47e;
+    transition: .5s;
+    background: #606060;
+    color: #c5a47e; 
+}
+.arrow-down,
+ .arrow-up  {
+    color: #606060;    
+
+}
+.arrow-down:hover,
+ .arrow-up:hover {
+    border-bottom: 4px solid #c5a47e;
+    border-left: 0px;
+    color:#c5a47e;
+}
+nav ul {   
+    position: absolute;
+    top:-200vh;
+    width: 100%;
+    transition: all 1s; 
+    z-index: 1;
+}
+
+.show{
+    top:0
+}
+
+/***************MAIN *****************/
+main {
+   
+    padding: 20px
+}
+main .wrapper {
+    padding: 10px 20px;
+    background-color: #000000b3;
+    font-weight: bold;
+}
+/*********** FOOTER ************/
+
+footer, .fab{
+    color: #606060;
+    font-weight: bold;
+    
+}
+
+footer{
+    padding: 10px;
+    font-size: x-large;
+    background-color: #272727;
+}
+
+.fab:hover{
+    color: #c5a47e;
+}
+
+
+#socials {
+    padding: 5px;
+    font-size: xxx-large;
+    }
+
+
+/* ADDING MEDIA Q */   
+
+    @media screen and (min-width: 1280px) {
+        nav ul{
+            position: static;
+        }
+        body{
+            font-size: small;
+            
+        }
+        nav{
+            max-width: 302px;
+            min-width: 292px;
+        }
+        nav, footer, #socials{
+            font-size: large;
+            
+        }
+
+        #nav-title, #nav-title .cocktail {
+            font-size: x-large;
+        }
+        #nav-title .cocktail{
+            font-size: xx-large;
+        }
+        
+        #nav-title{
+            margin-bottom: 30px;
+        }
+        nav li{
+            padding: 15px;
+        }
+
+        .wrapper{
+            min-height: 100%;
+
+        }
+        main{
+            padding: 0;
+            margin: 20px;
+        }
+
+    }
+
+
+
+
+
+
+
+
+
