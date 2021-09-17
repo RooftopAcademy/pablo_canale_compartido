@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OwnCocktail</title>
+    <!--- My Css-->
+    <link rel="stylesheet" href="./css/style-general-structure.css">
+    <link rel="stylesheet" href="./css/style-general-desing.css">
+    <link rel="stylesheet" href="./css/style-cocktails.css">
+    <link rel="stylesheet" href="./css/style-cards.css">
+
+    <!-- Styles from googlefonts and fontawesome-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Two+Tone" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css">
+
+</head>
+
+<!-- I used div for structure, diferents divs with flex classes that make the order of the page -->
+
+
+<body>
+    <div class="container-screen flex-column space-between">
+        <dir id="main" class="flex-column">
+            <nav class="flex-column">
+                <div id="nav-title" class="flex-row center">
+                    <div class="flex-column center">
+                        <span class="material-icons-outlined cocktail">local_bar</span>
+                    </div>
+                    <div class="">
+                        <p>OWN COCKTAIL</p>
+                    </div>
+                </div>
+
+                <div class="flex-row center arrow-down" onclick="toggleMenu()">
+                    <span class="material-icons-two-tone">
+                        expand_more
+                    </span>
+                </div>
+
+
+                <ul class="text-center">
+                    <div class="flex-column">
+                        <a href="index.html">
+                            <li>HOME</li>
+                        </a>
+                        <a href="cocktails.html">
+                            <li>COCKTAILS</li>
+                        </a>
+                        <a href="#">
+                            <li>RECIPES</li>
+                        </a>
+                        <a href="#">
+                            <li>CONTACT US</li>
+                        </a>
+                        <a href="#">
+                            <li class="arrow-up">
+                                <div onclick="toggleMenu()">
+                                    <span class="material-icons-two-tone">
+                                        expand_less
+                                    </span>
+                                </div>
+                            </li>
+                        </a>
+                    </div>
+                </ul>
+                <form id="form-cocktails" class="">
+                    <input id="cocktailName" type="text" placeholder="Cocktail Name">
+                    <input id="ingredients" type="text" placeholder="Add Ingredints splits by ',' ">
+                    <button id="btn btn-admin">Add Cocktail</button>
+                </form>
+            </nav>
+
+            <main>
+                <div class="wrapper">
+                    <div id="login-container ">
+                        <div class="flex-column center">
+                            <!-- Need Css -->
+                            <div class="login">
+                                <form id="login-form" class="flex-column">
+                                    <input id="username" type="text" placeholder="Username">
+                                    <input id="pass" type="number" placeholder="Password">
+                                    <button id="btn btn-login">Login</button>
+                                    <button id="btn btn-register">Register</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- This are card examples, I will change them with objects, -->
+                    <div id="cards-container" class="flex">
+                        <div id="1" class="card">
+                            <div class="card-container">
+                                <div class="card-front">
+                                    <div class="card-text flex-column center">
+                                        <div class="text-center">
+                                            <h1>Ingredients</h1>
+                                            <p>White Rum</p>
+                                            <p>Coconut Milk</p>
+                                            <p>Pianeaple Juice</p>
+                                            <p>Crushed Ice</p>
+                                            <span class="star material-icons-outlined">star</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-back text-center">
+                                    <h1>Pina Colada</h1>
+                                    <img src="./img/cocktail_pina_colada-1.png" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- CARD - 2 -->
+                        <div id="2" class="card">
+                            <div class="card-container">
+                                <div class="card-front">
+                                    <div class="card-text flex-column center">
+                                        <div class="text-center">
+                                            <h1>Ingredients</h1>
+                                            <p>Gin</p>
+                                            <p>Tonic</p>
+                                            <p>Ice cubes</p>
+                                            <span class="star material-icons-outlined">star</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-back text-center">
+                                    <h1>Gin Tonic</h1>
+                                    <img src="./img/cocktail_gin_tonic-1.png" />
+                                </div>
+                            </div>
+                        </div>
+                        <!-- CARD - 3 -->
+                        <div id="3" class="card">
+                            <div class="card-container">
+                                <div class="card-front">
+                                    <div class="card-text flex-column center">
+                                        <div class="text-center">
+                                            <h1>Ingredients</h1>
+                                            <p>White Run</p>
+                                            <p>Sugar Syrup</p>
+                                            <p>Lime Juice</p>
+                                            <p>Ice Cubes</p>
+                                            <span class="star material-icons-outlined">star</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-back text-center">
+                                    <h1>Daikiri</h1>
+                                    <img src="./img/cocktail_daiquiri-1.png" />
+                                </div>
+                            </div>
+                        </div>
+                        <!-- CARD - 4 -->
+                        <div id="4" class="card">
+                            <div class="card-container">
+                                <div class="card-front">
+                                    <div class="card-text flex-column center">
+                                        <div class="text-center">
+                                            <h1>Ingredients</h1>
+                                            <p>Cachaca</p>
+                                            <p>Sugar </p>
+                                            <p>Lime wedges</p>
+                                            <p>Crushed Ice</p>
+                                            <span class="star material-icons-outlined">star</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-back text-center">
+                                    <h1>Caipirinha</h1>
+                                    <img src="./img/cocktail_caipirinha-1.png" />
+                                </div>
+                            </div>
+                        </div>
+                        <!-- CARD - 5 -->
+                        <div class="card">
+                            <div class="card-container">
+                                <div class="card-front">
+                                    <div class="card-text flex-column center">
+                                        <div class="text-center">
+                                            <h1>Ingredients</h1>
+                                            <p>Strawberry</p>
+                                            <p>Sugar</p>
+                                            <p>Pineapple</p>
+                                            <p>Yogurt</p>
+                                            <p>Milk</p>
+                                            <p>Ice</p>
+                                            <span class="star material-icons-outlined">star</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-back text-center">
+                                    <h1>Trop Stawberry</h1>
+                                    <img src="./img/cocktail_tropical_strawberry-1.png" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </dir>
+
+        <footer class="flex-column text-center">
+            <div id="socials" class="flex-row space-evenly">
+                <a href=" #"><i class="fab fa-facebook-f "></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-youtube"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+            </div>
+            <div class="text-center">
+                <p>2021 All rights reserved ®</p>
+            </div>
+        </footer>
+    </div>
+    <script src="./js/general.js"></script>
+    <script src="./js/cocktails.js"></script>
+</body>
+
+</html>
