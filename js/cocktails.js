@@ -46,9 +46,10 @@ class Board {
 }
 
 class Cocktail {
-    constructor(name, ingredients) {
+    constructor(name, ingredients, image) {
         this.name = name;
         this.ingredients = ingredients;
+        this.image = image;
     }
 
     getIngredients() {
@@ -149,8 +150,12 @@ class UserInterface {
         textCenter.innerHTML += `<h1>Ingredients</h1>`
         for (let i = 0; i < ingredients.length; i++)
             textCenter.innerHTML += `<p>${ingredients[i]}</p>`
-        // this is the star for favorites drinks    
-        textCenter.innerHTML += `<span id="${cocktail.getName()} class="star material-icons-outlined">star</span>`;
+
+        // this is the star for favorites drinks
+        let star = document.createElement('span');
+        star.classList.add('star', 'material-icons-outlined')
+        star.nodeValue = 'star';
+        textCenter.appendChild(star);
 
         back.innerHTML += `<h1>${cocktail.getName()}</h1>`;
 
@@ -241,6 +246,7 @@ for (let i = 0; i < stars.length; i++) {
             board.getActualUser().addFavorite(board.getCocktails()[element]);
             alert("Added to favorites!");
             console.log(board.getActualUser().getFavorites())
+
         }
         else
             alert("You should be registered for favorites option");
@@ -254,5 +260,6 @@ const board = new Board();
 
 
 //Just for practice// 
-let negroni = new Cocktail('Pina Colada', ['White Run', 'Coconut Milk', 'Pineaple Juice', 'Crushed Ice']);
-let oldFashioned = new Cocktail('Old Fashion', ['Whisky', 'Sugar', 'Angostura', 'Orange Dash']);
+
+/*let negroni = new Cocktail('Pina Colada', ['White Run', 'Coconut Milk', 'Pineaple Juice', 'Crushed Ice']);
+let oldFashioned = new Cocktail('Old Fashion', ['Whisky', 'Sugar', 'Angostura', 'Orange Dash']); */
