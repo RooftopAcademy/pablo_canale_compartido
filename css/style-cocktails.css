@@ -1,0 +1,13 @@
+/* This css is in progress. I will create the desing of forms in cocktails html */
+
+.login form{
+    height: 200px;    
+}
+
+.flex{
+    display: flex;
+}
+
+.hidden-container{
+    display: none;
+  } 
