@@ -1,5 +1,5 @@
 
-
+////////////////////////////    OBJETS    /////////////////////////////
 class Board {
     constructor() {
         this.users = [];
@@ -58,6 +58,7 @@ class Cocktail {
 
 }
 
+// Class for users that are not login in//
 class User {
     constructor() {
         this.name = '';
@@ -65,7 +66,7 @@ class User {
     }
 }
 
-
+// Registered user can add favorites to board//
 class RegisteredUser extends User {
     constructor(name, pass) {
         super();
@@ -100,13 +101,34 @@ class RegisteredUser extends User {
     }
 
 }
-
-
-
-
+// This class makes the wiew in HTML//
 class UserInterface {
     addCocktail(cocktail) {
         let container = document.getElementById('cards-container');
+
+        // This is a example of cocktail card that I'm creating with the nodes//
+
+        /*<div id="4" class="card">
+                            <div class="card-container">
+                                <div class="card-front">
+                                    <div class="card-text flex-column center">
+                                        <div class="text-center">
+                                            <h1>Ingredients</h1>
+                                            <p>Cachaca</p>
+                                            <p>Sugar </p>
+                                            <p>Lime wedges</p>
+                                            <p>Crushed Ice</p>
+                                            <span class="star material-icons-outlined">star</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-back text-center">
+                                    <h1>Caipirinha</h1>
+                                    <img src="./img/cocktail_caipirinha-1.png" />
+                                </div>
+                            </div>
+                        </div>
+        */
         let card = document.createElement('div');
         card.classList.add('card');
         let cardContainer = document.createElement('div');
@@ -126,6 +148,8 @@ class UserInterface {
             textCenter.innerHTML += `<p>${ingredients[i]}</p>`;
         console.log(cocktail.getName())
         back.innerHTML += `<h1>${cocktail.getName()}</h1>`;
+
+        // I will add images from the inputs in form-cocktail //
         /*back.innterHTML += `<img src="./img/${}" />`*/
         cardText.appendChild(textCenter);
         front.appendChild(cardText);
@@ -134,7 +158,10 @@ class UserInterface {
         card.appendChild(cardContainer);
 
         container.appendChild(card);
+
+
     }
+    // Future feature that delete a card from dom//
     deleteCocktail() {
 
     }
@@ -148,7 +175,10 @@ class UserInterface {
 
 }
 
-/** DOM **/
+/****************************** DOM ***************************************/
+
+// Listener for login form, register and login buttons//
+
 document.getElementById('login-form').addEventListener('submit', function (e) {
     e.preventDefault();
     if (e.submitter.id == 'btn btn-register') {
@@ -178,6 +208,8 @@ document.getElementById('login-form').addEventListener('submit', function (e) {
     }
 
 })
+
+// listener for form-cocktail, add a cocktail with information provided by the inputs//
 document.getElementById('form-cocktail').addEventListener('submit', function (e) {
     e.preventDefault();
     let name = document.getElementById('cocktailName').value;
@@ -187,6 +219,7 @@ document.getElementById('form-cocktail').addEventListener('submit', function (e)
     board.getUserInterface().addCocktail(cocktail);
 })
 
+// In development, clicked stars in cards will add cocktail to favorite if the user its registered//
 let stars = document.getElementsByClassName('star');
 for (let i = 0; i < stars.length; i++) {
     stars[i].addEventListener('click', function (e) {
@@ -200,7 +233,11 @@ for (let i = 0; i < stars.length; i++) {
 }
 
 
+//My board object//
 
 const board = new Board();
+
+
+//Just for practice// 
 let negroni = new Cocktail('Negroni', ['Campario', 'Gin', 'Rosso', 'Orange Dash']);
 let oldFashioned = new Cocktail('Old Fashion', ['Whisky', 'Sugar', 'Angostura', 'Orange Dash']);
