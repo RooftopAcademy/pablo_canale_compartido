@@ -7,6 +7,11 @@ class Board {
         this.actualUser = new User();
         this.cocktails = [];
     }
+
+    addCocktail(cocktail) {
+        this.cocktails.push(cocktail);
+        this.userInterface.addCocktail(cocktail);
+    }
     getCocktails() {
         return this.cocktails;
     }
@@ -21,6 +26,12 @@ class Board {
     };
     setActualUser(user) {
         this.actualUser = user;
+    }
+    idToCocktail(id){
+        let cocktail = 0;
+        while(this.cocktails[cocktail].getId != id)
+            cocktail++;
+        return this.cocktails[cocktail];
     }
 
     addUser(user) {
@@ -50,6 +61,13 @@ class Cocktail {
         this.name = name;
         this.ingredients = ingredients;
         this.image = image;
+        this.id = null;
+    }
+    getId(){
+        return this.id;
+    }
+    setId(id) {
+        this.id = id;
     }
 
     getIngredients() {
@@ -57,6 +75,9 @@ class Cocktail {
     }
     getName() {
         return this.name;
+    }
+    getImage() {
+        return this.image;
     }
 
 }
@@ -109,7 +130,7 @@ class UserInterface {
     addCocktail(cocktail) {
         let container = document.getElementById('cards-container');
 
-        // This is a example of cocktail card that I'm creating with the nodes//
+        // This is a example of a cocktail card that I'm creating with the nodes//
 
         /*<div id="4" class="card">
                             <div class="card-container">
@@ -133,6 +154,7 @@ class UserInterface {
                         </div>
         */
         let card = document.createElement('div');
+        card
         card.classList.add('card');
         let cardContainer = document.createElement('div');
         cardContainer.classList.add('card-container')
@@ -146,21 +168,23 @@ class UserInterface {
         back.classList.add('card-back', 'text-center');
 
         // adding the ingredients to the card
-        let ingredients = cocktail.ingredients;
+        let ingredients = cocktail.getIngredients();
         textCenter.innerHTML += `<h1>Ingredients</h1>`
         for (let i = 0; i < ingredients.length; i++)
             textCenter.innerHTML += `<p>${ingredients[i]}</p>`
 
         // this is the star for favorites drinks
         let star = document.createElement('span');
-        star.classList.add('star', 'material-icons-outlined')
-        star.nodeValue = 'star';
+        star.classList.add('star', 'material-icons-outlined');
+        star.innerHTML += 'star';
+        star.addEventListener('click', addFavorite);
+        star.id = cocktail.getId();
         textCenter.appendChild(star);
 
         back.innerHTML += `<h1>${cocktail.getName()}</h1>`;
+        //  add images from the input in form-cocktail //
+        back.innerHTML += `<img src="${cocktail.getImage()}" />`
 
-        // I will add images from the inputs in form-cocktail //
-        /*back.innterHTML += `<img src="./img/${}" />`*/
         cardText.appendChild(textCenter);
         front.appendChild(cardText);
         cardContainer.appendChild(front);
@@ -168,7 +192,6 @@ class UserInterface {
         card.appendChild(cardContainer);
         // Here I put it in the container in the html
         container.appendChild(card);
-
 
     }
     // Future feature that delete a card from dom//
@@ -227,31 +250,28 @@ document.getElementById('form-cocktails').addEventListener('submit', function (e
     let name = document.getElementById('cocktailName').value;
     let ingredients = document.getElementById('ingredients').value;
     let ingredientsArray = ingredients.split(",");
-    let cocktail = new Cocktail(name, ingredientsArray);
-    board.getUserInterface().addCocktail(cocktail);
+    let imageUrl = document.getElementById('image');
+    let id = board.getUsers().length + 1;
+    let cocktail = new Cocktail(name, ingredientsArray, imageUrl);
+    cocktail.setId(id);
+    
+    board.addCocktail(cocktail);
 })
 
-// In development, clicked stars in cards will add cocktail to favorite if the user its registered//
-let stars = document.getElementsByClassName('star');
-for (let i = 0; i < stars.length; i++) {
-    stars[i].addEventListener('click', function (e) {
-        if (board.getActualUser() instanceof RegisteredUser) {
-            //with this I take the product name from the card
-            let productName = e.path[4].getElementsByClassName('card-back')[0].getElementsByTagName('h1')[0].innerText;
-            //search for cocktails with that name in the board
-            let element = 0;
-            while (productName != board.getCocktails()[element].getName()) {
-                element++;
-            }
-            board.getActualUser().addFavorite(board.getCocktails()[element]);
-            alert("Added to favorites!");
-            console.log(board.getActualUser().getFavorites())
-
-        }
-        else
-            alert("You should be registered for favorites option");
-    })
+// clicked stars in cards add cocktail to favorite if the user its registered//
+function addFavorite(e) {
+    if (board.getActualUser() instanceof RegisteredUser) {
+        //with this I take the product name from the card
+        cocktailFavoriteId = e.target.id;
+        cocktailFavorite = board.idToCocktail(cocktailFavoriteId);
+        board.getActualUser().addFavorite(cocktailFavorite);
+        alert('Added to favorites!');
+        console.log(board.getActualUser().getFavorites())
+    }
+    else
+        alert('You should be online for add cocktails to favorites')
 }
+
 
 
 //My board object//
@@ -260,6 +280,22 @@ const board = new Board();
 
 
 //Just for practice// 
+// https://images.cocktailflow.com/v1/cocktail/w_300,h_540/cocktail_daiquiri-1.png    daikiri
+// https://images.cocktailflow.com/v1/cocktail/w_300,h_540/cocktail_pina_colada-1.png   pina colada
+// https://images.cocktailflow.com/v1/cocktail/w_300,h_540/cocktail_gin_tonic-1.png
+//  https://images.cocktailflow.com/v1/cocktail/w_300,h_540/cocktail_tropical_strawberry-1.png   trop Stawberry
+// https://images.cocktailflow.com/v1/cocktail/w_300,h_540/cocktail_caipirinha-1.png  caipi
 
-/*let negroni = new Cocktail('Pina Colada', ['White Run', 'Coconut Milk', 'Pineaple Juice', 'Crushed Ice']);
-let oldFashioned = new Cocktail('Old Fashion', ['Whisky', 'Sugar', 'Angostura', 'Orange Dash']); */
+let pinaColada = new Cocktail('Pina Colada', ['White Run', 'Coconut Milk', 'Pineaple Juice', 'Crushed Ice'], 'https://images.cocktailflow.com/v1/cocktail/w_300,h_540/cocktail_pina_colada-1.png');
+let daikiri = new Cocktail('Daikiri', ['White Run', 'Sugar Syrup', 'Lime Juice', 'Ice Cubes'], 'https://images.cocktailflow.com/v1/cocktail/w_300,h_540/cocktail_daiquiri-1.png');
+let ginTonic = new Cocktail('Gin Tonic', ['Gin', 'Lime', 'Tonic', 'Ice Cubes'], 'https://images.cocktailflow.com/v1/cocktail/w_300,h_540/cocktail_gin_tonic-1.png');
+let tropStraw = new Cocktail('Trop Strawberry', ['Strawberry', 'Sugar', 'Pineaple', 'Yogurt', 'Milk', 'Ice'], 'https://images.cocktailflow.com/v1/cocktail/w_300,h_540/cocktail_tropical_strawberry-1.png');
+let caipi = new Cocktail('Caipirinha', ['Cachaca', 'Sugar', 'Lime Wedges', 'Crushed Ice'], 'https://images.cocktailflow.com/v1/cocktail/w_300,h_540/cocktail_caipirinha-1.png');
+
+board.addCocktail(pinaColada);
+board.addCocktail(daikiri);
+board.addCocktail(ginTonic);
+board.addCocktail(tropStraw);
+board.addCocktail(caipi);
+
+
