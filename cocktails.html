@@ -8,9 +8,9 @@
     <title>OwnCocktail</title>
     <!--- My Css-->
     <link rel="stylesheet" href="./css/style-general-structure.css">
-    <link rel="stylesheet" href="./css/style-general-desing.css">
-    <link rel="stylesheet" href="./css/style-cocktails.css">
+    <link rel="stylesheet" href="./css/style-general-desing.css">    
     <link rel="stylesheet" href="./css/style-cards.css">
+    <link rel="stylesheet" href="./css/style-forms.css">
 
     <!-- Styles from googlefonts and fontawesome-->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Two+Tone" rel="stylesheet">
@@ -67,31 +67,32 @@
                         </a>
                     </div>
                 </ul>
-                <button type="button" id="btn-favorites">Show Favorites</button>     
+                <button class="btn" type="button" id="btn-favorites">Show Favorites</button>     
             </nav>
 
             <main>
                 <div class="wrapper">
-                    <div id="login-container ">
-                        <div class="flex-column center">
+                    <div id="login-container ">                       
                             <!-- Need Css -->
-                            <div class="login">
-                                <form id="login-form" class="flex-column">
+                        
+                            <div class="form-container">
+                                <form class="form flex-column" id="login-form" >
                                     <input id="username" type="text" placeholder="Username">
-                                    <input id="pass" type="number" placeholder="Password">
+                                    <input id="pass" type="number" placeholder="  Password">
                                     <button class="btn" id="btn-login">Login</button>
-                                    <button class="btn" id="btn-register">Register</button>
-                                    <p>If register and log, add favorites and create own cocktails</p>
+                                    <button class="btn" id="btn-register">Register</button>                                   
                                 </form>
-                                <form id="form-cocktails" class="flex-column">
+                            </div>
+                        
+                            <div class="form-container">
+                                <form class="form flex-column" id="form-cocktails">
                                     <input id="cocktailName" type="text" placeholder="Cocktail Name">
-                                    <input id="ingredients" type="text" placeholder="Add Ingredints splits by ',' ">
+                                    <input id="ingredients" type="text" placeholder="Add Ingredints" title="splits ingredints by ','">
                                     <input id="image" type="text" placeholder="Add image URL">
-                                    <button id="btn btn-admin">Add Cocktail</button>                                    
+                                    <button id="btn-admin" class="btn">Add Cocktail</button>                                    
                                 </form>                                                               
                             </div>
-                        </div>
-                    </div>
+                   
                     <!-- In this div I put my cocktail cards -->
                     <div id="cards-container" class="flex"></div>
                 </div>
