@@ -22,7 +22,7 @@ class OwnCocktail {
     setActualUser(user) {
         this.actualUser = user;
     }
-    cocktailsFromId(id){
+    cocktailFromId(id){
         let cocktail = 0;
         while(this.cocktails[cocktail].getId() != id)
             cocktail++;
