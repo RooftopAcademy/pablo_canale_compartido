@@ -38,21 +38,8 @@ class OwnCocktail {
         if (user instanceof (RegisteredUser))
             this.users.push(user);
     }
-    filterFavorites() {
-        const cocktailsToShow = this.cocktails.filter(
-            function (cocktail) {
-                const favorites = this.actualUser.getFavorites();
-                // La funcion find me devuelve un "Cocktail" si lo encuentra, y sino un undefined
-                const favFound = favorites.find(
-                    function (fav) {
-                        return fav.getName() == cocktail.getName()
-                    }
-                );
-
-                return favFound; // Si favFound es undefined se evaluara como false al retornar. De lo contrario indicara true.
-            }
-        );
-        this.view.showCocktails(cocktailsToShow);
+    filterFavorites() {        
+        this.view.showCocktails(this.actualUser.getFavorites());
     }
 }
 
