@@ -2,7 +2,10 @@
     flex-wrap: wrap;
     justify-content: center;
   } 
-  
+  .card-front .trashcan{
+    font-size: 50px;
+    color: #606060;
+  }
   .card {
     /* background-color: #0000aa; */
     perspective: 1000px;
@@ -61,8 +64,13 @@
     color: #c5a47e;
   }
 
+ .card-front .trashcan:hover{
+    color: #c5a47e;
+  }
+
   .colorFavorite{
     color: #c5a47e;
   }
+
 
   
