@@ -35,14 +35,14 @@
                     </div>
                 </div>
 
-                <div class="flex-row center arrow-down" onclick="toggleMenu()">
+                <div class="flex-row center arrow-down">
                     <span class="material-icons-two-tone">
                         expand_more
                     </span>
                 </div>
 
 
-                <ul class="text-center">
+                <ul id="ul-btns" class="text-center">
                     <div class="flex-column">
                         <a href="index.html">
                             <li>HOME</li>
@@ -67,12 +67,7 @@
                         </a>
                     </div>
                 </ul>
-                <form id="form-cocktails" class="">
-                    <input id="cocktailName" type="text" placeholder="Cocktail Name">
-                    <input id="ingredients" type="text" placeholder="Add Ingredints splits by ',' ">
-                    <input id="image" type="text" placeholder="Add image URL">
-                    <button id="btn btn-admin">Add Cocktail</button>
-                </form>
+                <button type="button" id="btn-favorites">Show Favorites</button>     
             </nav>
 
             <main>
@@ -84,10 +79,16 @@
                                 <form id="login-form" class="flex-column">
                                     <input id="username" type="text" placeholder="Username">
                                     <input id="pass" type="number" placeholder="Password">
-                                    <button id="btn btn-login">Login</button>
-                                    <button id="btn btn-register">Register</button>
+                                    <button class="btn" id="btn-login">Login</button>
+                                    <button class="btn" id="btn-register">Register</button>
                                     <p>If register and log, add favorites and create own cocktails</p>
                                 </form>
+                                <form id="form-cocktails" class="flex-column">
+                                    <input id="cocktailName" type="text" placeholder="Cocktail Name">
+                                    <input id="ingredients" type="text" placeholder="Add Ingredints splits by ',' ">
+                                    <input id="image" type="text" placeholder="Add image URL">
+                                    <button id="btn btn-admin">Add Cocktail</button>                                    
+                                </form>                                                               
                             </div>
                         </div>
                     </div>
@@ -109,8 +110,12 @@
             </div>
         </footer>
     </div>
-    <script src="./js/general.js"></script>
-    <script src="./js/cocktails.js"></script>
+    <script src="./js/toggleMenu.js"></script>
+    <script src="./js/src/CocktailClass.js"></script>    
+    <script src="./js/src/UserClass.js"></script>
+    <script src="./js/src/ResteredUserClass.js"></script>
+    <script src="./js/src/ViewClass.js"></script>
+    <script src="./js/src/OwnCocktailClass.js"></script>
+    <script src="./js/cocktailsDomInit.js"></script>
 </body>
-
 </html>
