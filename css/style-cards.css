@@ -17,9 +17,7 @@
     transition: all 1s ease;
     transform-style: preserve-3d;
   }
-  .card-front, .card-back{
-    border-radius: 4%;
-  }
+
   .card-front {
     grid-area: 1 / 1;
     transform: rotateY(180deg);
