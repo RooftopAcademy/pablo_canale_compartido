@@ -51,7 +51,9 @@ document.getElementById('form-cocktails').addEventListener('submit', function (e
     bar.addCocktail(cocktail);
 })
 
-
+document.getElementById('btn-favorites').addEventListener('click', function(e){
+    bar.filterFavorites();
+})
  
 
 
@@ -70,26 +72,26 @@ const bar = new OwnCocktail();
 let pinaColada = new Cocktail('Pina Colada', ['White Run', 'Coconut Milk', 'Pineaple Juice', 'Crushed Ice'], 'https://images.cocktailflow.com/v1/cocktail/w_300,h_540/cocktail_pina_colada-1.png');
 let id = bar.getCocktails().length + 1;
 pinaColada.setId(id);
+bar.addCocktail(pinaColada);
 
 let daikiri = new Cocktail('Daikiri', ['White Run', 'Sugar Syrup', 'Lime Juice', 'Ice Cubes'], 'https://images.cocktailflow.com/v1/cocktail/w_300,h_540/cocktail_daiquiri-1.png');
 id = bar.getCocktails().length + 1;
 daikiri.setId(id);
+bar.addCocktail(daikiri);
 
 let ginTonic = new Cocktail('Gin Tonic', ['Gin', 'Lime', 'Tonic', 'Ice Cubes'], 'https://images.cocktailflow.com/v1/cocktail/w_300,h_540/cocktail_gin_tonic-1.png');
 id = bar.getCocktails().length + 1;
 ginTonic.setId(id);
+bar.addCocktail(ginTonic);
 
 let tropStraw = new Cocktail('Trop Strawberry', ['Strawberry', 'Sugar', 'Pineaple', 'Yogurt', 'Milk', 'Ice'], 'https://images.cocktailflow.com/v1/cocktail/w_300,h_540/cocktail_tropical_strawberry-1.png');
 id = bar.getCocktails().length + 1;
 tropStraw.setId(id);
+bar.addCocktail(tropStraw);
 
 let caipi = new Cocktail('Caipirinha', ['Cachaca', 'Sugar', 'Lime Wedges', 'Crushed Ice'], 'https://images.cocktailflow.com/v1/cocktail/w_300,h_540/cocktail_caipirinha-1.png');
 id = bar.getCocktails().length + 1;
 caipi.setId(id);
-
-bar.addCocktail(pinaColada);
-bar.addCocktail(daikiri);
-bar.addCocktail(ginTonic);
-bar.addCocktail(tropStraw);
 bar.addCocktail(caipi);
+
 
