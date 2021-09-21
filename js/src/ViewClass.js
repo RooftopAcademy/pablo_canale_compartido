@@ -26,6 +26,7 @@ class View {
                             </div>
                         </div>
         */
+       
         let card = document.createElement('div');
         card.classList.add('card');
         let cardContainer = document.createElement('div');
@@ -51,8 +52,11 @@ class View {
                let cocktailToDelete = bar.cocktailFromId(-(cocktailToDeleteId));               
                bar.deleteCocktail(cocktailToDelete);        
             }
-            else    
-                alert('You should be online for delete option')
+            else{
+                bar.getMessageBox().setMessage(`You Should Be Login For Delete Option`);                       
+                bar.showBox();  
+            }    
+                
         });
 
         textCenter.appendChild(deleteButton);
@@ -84,8 +88,10 @@ class View {
                     alert('Added to favorites!');
                     console.log(bar.getActualUser().getFavorites())
                 }
-                else
-                    alert('You should be online for add cocktails to favorites')
+                else{
+                    bar.getMessageBox().setMessage(`You Should Be Login For Favorite Option`);                            
+                    bar.showBox();  
+                }                   
             }
         );
         
@@ -111,4 +117,28 @@ class View {
         for (let cocktail = 0; cocktail < cocktails.length; cocktail++)
             this.addCocktail(cocktails[cocktail]);           
     }
+
+    showBox(messageBox){
+        let boxLocation = document.getElementById('login-container');        
+        let div = document.createElement('div');
+        div.id = 'message';
+        div.classList.add('message', 'flex-column');
+
+        let p = document.createElement('p');
+        p.innerText = `${messageBox.getMessage()}`
+
+        let buttonBox = document.createElement('button');
+        buttonBox.id= 'btn-box'
+        buttonBox.classList.add('btn');
+        buttonBox.innerText = 'Accept';
+        buttonBox.addEventListener('click', function(){
+           boxLocation.removeChild(div);
+        })
+        
+        div.appendChild(p);
+        div.appendChild(buttonBox);
+        boxLocation.prepend(div);
+        div.scrollIntoView();      
+    }
+
 }
