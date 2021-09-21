@@ -5,17 +5,14 @@ class OwnCocktail {
         this.actualUser = new User();
         this.cocktails = [];
         this.messageBox = new MessageBox();
+        this.urlApi = 'https://6148b332035b3600175b9fd8.mockapi.io/Bar/1/'
     } 
     
+    ////////////////////GETTERS AND SETTERS ////////////////////////////
     getMessageBox(){
         return this.messageBox;
     }
 
-    addCocktail(cocktail) {        
-        this.cocktails.push(cocktail);
-        this.view.addCocktail(cocktail);
-
-    }
     getCocktails() {
         return this.cocktails;
     }
@@ -28,70 +25,89 @@ class OwnCocktail {
     setActualUser(user) {
         this.actualUser = user;
     }
-    cocktailFromId(id){
-        let cocktail = 0;
-        while(this.cocktails[cocktail].getId() != id)
-            cocktail++;
-        return this.cocktails[cocktail];
-    }
-    deleteCocktail(cocktail){
-        //remove element with index        
-        this.cocktails.splice(cocktail.getId() - 1, 1);       
-        this.view.showCocktails(this.cocktails);       
-    }
-
-    addUser(user) {
-        if (user instanceof (RegisteredUser)){
-            this.users.push(user);
-      
-        }
-    }
+    ////////////////////////// METHODS /////////////////////////////////
     filterFavorites() {        
         this.view.showCocktails(this.actualUser.getFavorites());
     }
-
+    addUser(user) {
+        if (user instanceof (RegisteredUser))
+        this.users.push(user);           
+    }
     showBox(){
         this.view.showBox(this.messageBox);
     }
+    showCocktails(){
+        this.view.showCocktails(this.cocktails);
+    }
+    
+    cocktailFromId(id){
+        // Esta funcion esta por morir ... trash, estoy rompiendo el encapsulamiento cuando la uso? I think soo... 2:46am 21/09/2021 escuchando lofi hip hop
+        let cocktail = 0;        
+        while(this.cocktails[cocktail].id != id)
+        cocktail++;
+        return this.cocktails[cocktail];
+    }
+    ////////////////////////////////////////////////////////////////
+    //  COCKTAILS METHODS (ASYNC)  Podria hacer una clase con todos los metodos de la api?, tener un objeto api como atributo de esta clase...
+    ///////////////////////////////////////////////////////////////
 
-    async postUserApi(user){ 
-        let url = "https://6148b332035b3600175b9fd8.mockapi.io/Bar/1/"
+    async addCocktail(cocktail) {         
+            await this.postCocktailApi(cocktail);
+            this.cocktails = await this.getCocktailsApi();
+            this.view.showCocktails(this.cocktails);       
+        }
+    async deleteCocktail(id){
+        //remove element with id 
+
+        // Estoy realmente espera a que se borre en la api?
+        let awaitDelete = await this.deleteCocktailApi(id); 
+        this.cocktails = await this.getCocktailsApi();
+        //this.cocktails.splice(cocktail.id - 1, 1);   <------< Esto lo usaba antes...              
+        this.view.showCocktails(this.cocktails);       
+    } 
+         
+    async postCocktailApi(cocktail){         
         try{     
-            let res = await fetch(`${url}User`,{
+            let res = await fetch(`${this.urlApi}Cocktail`,{
                 "method":"POST",
                 "headers":{"Content-type":"application/json"},
-                "body":JSON.stringify(user)
-            });
-            if( res.status === 201){            
-                console.log(res);       
-            }
+                "body":JSON.stringify(cocktail)
+            });            
         }
         catch(e){
             alert("ERROR CATCH POST USER")
         }
     }
-
-    async getArrayUsersApi(){
-        let url = "https://6148b332035b3600175b9fd8.mockapi.io/Bar/1/"
-        let users;
+    
+    async getCocktailsApi(){        
+        let cocktails;
         try{              
-            let res = await fetch(`${url}User`);        
-            users = await res.json();                   
-            if(res.ok){
-                console.log(users);
+            let res = await fetch(`${this.urlApi}Cocktail`);        
+            cocktails = await res.json();                   
+            if(res.ok){                               
             }    
             else{
-                alert("ERROR, RESP NO OK GET USERS");
-                users=[];
+                cocktails=[];
             }       
-                        
+            
         }            
-        catch(error){
-            alert("ERROR CATCH GET USERS");
-            users=[];
+        catch(e){
+            alert("ERROR CATCH GET COCKTAILS");
+            cocktails=[];
         }    
-        return users; 
+        return cocktails; 
     }
-
+    
+    async deleteCocktailApi(id){ 
+        try{
+            let res = await fetch(`${this.urlApi}Cocktail/${id}`,{
+                "method":"DELETE"
+            });            
+        }
+        catch(e){
+            alert("ERROR CATH DELETE COCKTAIL");
+        }
+    }
+    
 }
 
