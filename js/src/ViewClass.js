@@ -75,11 +75,11 @@ class View {
         star.addEventListener('click', 
         // clicked stars in cards add cocktail to favorite if the user its registered//
             function (e) {
-                if (bar.getActualUser() instanceof RegisteredUser) {
-                    //with this I take the product name from the card
+                if (bar.getActualUser() instanceof RegisteredUser) {                    
                     let cocktailFavoriteId = e.target.id;
                     let cocktailFavorite = bar.cocktailFromId(cocktailFavoriteId);
                     bar.getActualUser().addFavorite(cocktailFavorite);
+
                     bar.getMessageBox().setMessage(`Cocktail Added To Favorites`);                            
                     bar.showBox();                      
                 }
@@ -101,7 +101,7 @@ class View {
         cardContainer.appendChild(front);
         cardContainer.appendChild(back);
         card.appendChild(cardContainer);
-        // Here I put it in the container in the html
+        
         return card;
     }    
    
@@ -111,9 +111,9 @@ class View {
         for (let cocktail = 0; cocktail < cocktails.length; cocktail++)
             cardContainer.appendChild(this.createCocktail(cocktails[cocktail]));
     }
-
+    
     showBox(messageBox){
-        let boxLocation = document.getElementById('login-container');        
+        let boxLocation = document.getElementById('container-inside-login');        
         let div = document.createElement('div');
         div.id = 'message';
         div.classList.add('message', 'flex-column');
