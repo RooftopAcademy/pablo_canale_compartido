@@ -1,14 +1,14 @@
 // This class makes the wiew in HTML//
 class View {
-    addCocktail(cocktail) {
-        let container = document.getElementById('cards-container');
-
-        // This is a example of a cocktail card that I'm creating with the nodes//
+    createCocktail(cocktail) {     
+       
+        // This is a example of flip cocktail cards that I'm creating with the nodes//
 
         /*<div id="4" class="card">
                             <div class="card-container">
                                 <div class="card-front">
                                     <div class="card-text flex-column center">
+                                        <span class="trashcan material-icons-outlined">delete</span>
                                         <div class="text-center">
                                             <h1>Ingredients</h1>
                                             <p>Cachaca</p>
@@ -44,26 +44,21 @@ class View {
         let deleteButton = document.createElement('span');        
         deleteButton.classList.add('trashcan', 'material-icons-outlined');
         deleteButton.innerHTML += 'delete';
-        deleteButton.id = -(cocktail.getId());
+        deleteButton.id = -(cocktail.id);        
         deleteButton.addEventListener('click', 
         function (e){
-            if (bar.getActualUser() instanceof RegisteredUser) {                
-               let cocktailToDeleteId = e.target.id;
-               let cocktailToDelete = bar.cocktailFromId(-(cocktailToDeleteId));               
-               bar.deleteCocktail(cocktailToDelete);        
-            }
+            if (bar.getActualUser() instanceof RegisteredUser)               
+                bar.deleteCocktail(-(e.target.id));       
             else{
                 bar.getMessageBox().setMessage(`You Should Be Login For Delete Option`);                       
                 bar.showBox();  
-            }    
-                
+            }   
         });
 
         textCenter.appendChild(deleteButton);
 
-        // adding the ingredients to the card
-        
-        let ingredients = cocktail.getIngredients();
+        // adding the ingredients to the card        
+        let ingredients = cocktail.ingredients;        
         let h1 = document.createElement('h1');
         h1.innerText = 'Ingredients';
         textCenter.appendChild(h1);
@@ -76,7 +71,7 @@ class View {
         let star = document.createElement('span');
         star.classList.add('star', 'material-icons-outlined');
         star.innerText = 'star';
-        star.id = cocktail.getId();
+        star.id = cocktail.id;
         star.addEventListener('click', 
         // clicked stars in cards add cocktail to favorite if the user its registered//
             function (e) {
@@ -85,8 +80,8 @@ class View {
                     let cocktailFavoriteId = e.target.id;
                     let cocktailFavorite = bar.cocktailFromId(cocktailFavoriteId);
                     bar.getActualUser().addFavorite(cocktailFavorite);
-                    alert('Added to favorites!');
-                    console.log(bar.getActualUser().getFavorites())
+                    bar.getMessageBox().setMessage(`Cocktail Added To Favorites`);                            
+                    bar.showBox();                      
                 }
                 else{
                     bar.getMessageBox().setMessage(`You Should Be Login For Favorite Option`);                            
@@ -97,9 +92,9 @@ class View {
         
         textCenter.appendChild(star);
         
-        back.innerHTML += `<h1>${cocktail.getName()}</h1>`;
+        back.innerHTML += `<h1>${cocktail.name}</h1>`;
         //  add images from the input in form-cocktail //
-        back.innerHTML += `<img src="${cocktail.getImage()}" />`;
+        back.innerHTML += `<img src="${cocktail.image}" />`;
 
         cardText.appendChild(textCenter);
         front.appendChild(cardText);
@@ -107,15 +102,14 @@ class View {
         cardContainer.appendChild(back);
         card.appendChild(cardContainer);
         // Here I put it in the container in the html
-        container.appendChild(card);
-
+        return card;
     }    
    
-    showCocktails(cocktails) {
+    showCocktails(cocktails) {        
         let cardContainer = document.getElementById('cards-container');
         cardContainer.innerHTML = '';        
         for (let cocktail = 0; cocktail < cocktails.length; cocktail++)
-            this.addCocktail(cocktails[cocktail]);           
+            cardContainer.appendChild(this.createCocktail(cocktails[cocktail]));
     }
 
     showBox(messageBox){
