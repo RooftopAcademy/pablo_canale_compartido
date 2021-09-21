@@ -34,9 +34,9 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 20px 10px;
     width: fit-content;
-    margin: auto;    
+    margin: auto;
+    padding: 20px
 }
 
 .flex{
@@ -45,6 +45,7 @@
 
 .hidden-container{
     display: none;
+    visibility: hidden;            
   }
 
 
@@ -60,4 +61,5 @@
     #btn-favorites{
         margin-top: 20px;
     }
+  
 }
