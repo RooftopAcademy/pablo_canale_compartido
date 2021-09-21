@@ -28,12 +28,12 @@ document.getElementById('login-form').addEventListener('submit', function (e) {
         let pass = document.getElementById('pass').value;
         if( !(name === '') && !(pass === '')){
             if(bar.getUsers().length != 0){
+                // SEGURAMENTE ESTO DE ADEALNTE ESTA MAL, NO DEBERIA LLAMAR A UNA FUNCION GETPASS DESDE ACA, ENCONTRAR UNA FUTURA SOLUCION DESPUES... ZzZzZzzZzZZzzZZ
                 for (let i = 0; i < bar.getUsers().length; i++) {
                     let user = bar.getUsers()[i];
                     if (user.getName() == name) {
                         if (user.getPass() == pass) {
-                            bar.setActualUser(user);
-                            //SE VE CUANDO EL USUARIO ESTA LOGUEADO, AHORA ESTA VISIBLE PARA PRACTICAR
+                            bar.setActualUser(user);                            
                             document.getElementById('form-cocktails').classList.toggle('hidden-container');
                             document.getElementById('login-form').classList.toggle('hidden-container');
                             bar.getMessageBox().setMessage(`Welcome ${user.getName()}!`);                            
@@ -76,16 +76,23 @@ document.getElementById('form-cocktails').addEventListener('submit', function (e
     bar.addCocktail(cocktail);
 })
 
-document.getElementById('btn-favorites').addEventListener('click', function(e){
-    if(bar.getActualUser() instanceof (RegisteredUser))
+document.getElementById('btn-favorites').addEventListener('click', function(){
+    if(bar.getActualUser() instanceof (RegisteredUser)){
         bar.filterFavorites();
+        document.getElementById('btn-all').classList.toggle('hidden-container');
+        document.getElementById('btn-favorites').classList.toggle('hidden-container');
+    }
     else{
         bar.getMessageBox().setMessage(`You Should Be Login For Favorite Option`);                     
         bar.showBox(); 
     }    
 })
  
-
+document.getElementById('btn-all').addEventListener('click', function(){
+    bar.showCocktails();
+    document.getElementById('btn-all').classList.toggle('hidden-container');
+    document.getElementById('btn-favorites').classList.toggle('hidden-container');
+});
 
 //My bar object//
 
@@ -100,28 +107,17 @@ const bar = new OwnCocktail();
 // https://images.cocktailflow.com/v1/cocktail/w_300,h_540/cocktail_caipirinha-1.png  caipi
 
 let pinaColada = new Cocktail('Pina Colada', ['White Run', 'Coconut Milk', 'Pineaple Juice', 'Crushed Ice'], 'https://images.cocktailflow.com/v1/cocktail/w_300,h_540/cocktail_pina_colada-1.png');
-let id = bar.getCocktails().length + 1;
-pinaColada.setId(id);
 bar.addCocktail(pinaColada);
-
 let daikiri = new Cocktail('Daikiri', ['White Run', 'Sugar Syrup', 'Lime Juice', 'Ice Cubes'], 'https://images.cocktailflow.com/v1/cocktail/w_300,h_540/cocktail_daiquiri-1.png');
-id = bar.getCocktails().length + 1;
-daikiri.setId(id);
 bar.addCocktail(daikiri);
 
-let ginTonic = new Cocktail('Gin Tonic', ['Gin', 'Lime', 'Tonic', 'Ice Cubes'], 'https://images.cocktailflow.com/v1/cocktail/w_300,h_540/cocktail_gin_tonic-1.png');
-id = bar.getCocktails().length + 1;
-ginTonic.setId(id);
+/*let ginTonic = new Cocktail('Gin Tonic', ['Gin', 'Lime', 'Tonic', 'Ice Cubes'], 'https://images.cocktailflow.com/v1/cocktail/w_300,h_540/cocktail_gin_tonic-1.png');
 bar.addCocktail(ginTonic);
 
 let tropStraw = new Cocktail('Trop Strawberry', ['Strawberry', 'Sugar', 'Pineaple', 'Yogurt', 'Milk', 'Ice'], 'https://images.cocktailflow.com/v1/cocktail/w_300,h_540/cocktail_tropical_strawberry-1.png');
-id = bar.getCocktails().length + 1;
-tropStraw.setId(id);
 bar.addCocktail(tropStraw);
 
 let caipi = new Cocktail('Caipirinha', ['Cachaca', 'Sugar', 'Lime Wedges', 'Crushed Ice'], 'https://images.cocktailflow.com/v1/cocktail/w_300,h_540/cocktail_caipirinha-1.png');
-id = bar.getCocktails().length + 1;
-caipi.setId(id);
 bar.addCocktail(caipi);
-
+*/
 
