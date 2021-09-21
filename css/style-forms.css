@@ -27,16 +27,18 @@
     color: #c5a47e; 
     
 }
-
-
-.form-container{
+#login-container{
     background-color: #272727;
+    width: fit-content;
+    padding: 20px;
+    margin: auto;
+}
+
+.form-container{    
     display: flex;
     justify-content: center;
-    align-items: center;
-    width: fit-content;
-    margin: auto;
-    padding: 20px
+    align-items: center;    
+    margin: auto;    
 }
 
 .flex{
