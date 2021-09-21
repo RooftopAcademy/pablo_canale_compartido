@@ -15,8 +15,7 @@ class RegisteredUser extends User {
     getPass() {
         return this.pass;
     }
-    addFavorite(cocktail) {
-        if (cocktail instanceof Cocktail)
+    addFavorite(cocktail) {        
             this.favorites.push(cocktail)
     }
     deleteFavorite(name) {
