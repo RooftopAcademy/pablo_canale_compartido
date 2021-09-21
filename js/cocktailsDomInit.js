@@ -10,29 +10,54 @@ document.getElementById('login-form').addEventListener('submit', function (e) {
     if (e.submitter.id == 'btn-register') {
         let name = document.getElementById('username').value;
         let pass = document.getElementById('pass').value;
-        let user = new RegisteredUser(name, pass);
-        bar.addUser(user);
-        alert("Congratulations! You are registered");
+        if( !(name === '') && !(pass === '')){
+            let user = new RegisteredUser(name, pass);
+            bar.addUser(user);
+            bar.getMessageBox().setMessage('Congratulations! You Are Registered');               
+            bar.showBox();
+        }
+        else{
+            bar.getMessageBox().setMessage('Usernama And Password Required For Registration');               
+            bar.showBox();
+        }
     }
 
     if (e.submitter.id == 'btn-login') {
 
         let name = document.getElementById('username').value;
         let pass = document.getElementById('pass').value;
-        for (let i = 0; i < bar.getUsers().length; i++) {
-            let user = bar.getUsers()[i];
-            if (user.getName() == name) {
-                if (user.getPass() == pass) {
-                    bar.setActualUser(user);
-                    //SE VE CUANDO EL USUARIO ESTA LOGUEADO, AHORA ESTA VISIBLE PPRACTICAR
-                    //document.getElementById('form-cocktails').classList.toggle("hidden-container");
-                    alert(`Welcome ${user.getName()}!`);
+        if( !(name === '') && !(pass === '')){
+            if(bar.getUsers().length != 0){
+                for (let i = 0; i < bar.getUsers().length; i++) {
+                    let user = bar.getUsers()[i];
+                    if (user.getName() == name) {
+                        if (user.getPass() == pass) {
+                            bar.setActualUser(user);
+                            //SE VE CUANDO EL USUARIO ESTA LOGUEADO, AHORA ESTA VISIBLE PARA PRACTICAR
+                            document.getElementById('form-cocktails').classList.toggle('hidden-container');
+                            document.getElementById('login-form').classList.toggle('hidden-container');
+                            bar.getMessageBox().setMessage(`Welcome ${user.getName()}!`);                            
+                            bar.showBox();                     
+                        }
+                        else{
+                            bar.getMessageBox().setMessage(`Username Or Password Incorrect!`);                           
+                            bar.showBox(); 
+                            }               
+                    }
+                    else{
+                    bar.getMessageBox().setMessage(`Username Or Password Incorrect!`);                     
+                    bar.showBox();  
+                    }
                 }
-                else
-                    alert("Bad Password");
             }
-            else
-                alert("There is no user with that name");
+            else{
+                bar.getMessageBox().setMessage(`No Users Registered`);                     
+                bar.showBox();  
+            }    
+        }
+        else{
+            bar.getMessageBox().setMessage(`Username And Password Required`);                     
+                bar.showBox(); 
         }
     }
 })
@@ -52,7 +77,12 @@ document.getElementById('form-cocktails').addEventListener('submit', function (e
 })
 
 document.getElementById('btn-favorites').addEventListener('click', function(e){
-    bar.filterFavorites();
+    if(bar.getActualUser() instanceof (RegisteredUser))
+        bar.filterFavorites();
+    else{
+        bar.getMessageBox().setMessage(`You Should Be Login For Favorite Option`);                     
+        bar.showBox(); 
+    }    
 })
  
 
