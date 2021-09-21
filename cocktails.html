@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="./css/style-general-desing.css">    
     <link rel="stylesheet" href="./css/style-cards.css">
     <link rel="stylesheet" href="./css/style-forms.css">
+    <link rel="stylesheet" href="./css/style-message-window.css">
 
     <!-- Styles from googlefonts and fontawesome-->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Two+Tone" rel="stylesheet">
@@ -23,6 +24,7 @@
 
 
 <body>
+    
     <div class="container-screen flex-column space-between">
         <dir id="main" class="flex-column">
             <nav class="flex-column">
@@ -71,28 +73,29 @@
             </nav>
 
             <main>
-                <div class="wrapper">
-                    <div id="login-container ">                       
+                
+                <div class="wrapper">                    
+                    <div id="login-container">                       
                             <!-- Need Css -->
-                        
+                            
                             <div class="form-container">
                                 <form class="form flex-column" id="login-form" >
-                                    <input id="username" type="text" placeholder="Username">
-                                    <input id="pass" type="number" placeholder="  Password">
+                                    <input id="username" type="text" placeholder="Username" >
+                                    <input id="pass" type="password" placeholder="  Password" >
                                     <button class="btn" id="btn-login">Login</button>
                                     <button class="btn" id="btn-register">Register</button>                                   
                                 </form>
                             </div>
                         
                             <div class="form-container">
-                                <form class="form flex-column" id="form-cocktails">
+                                <form class="form flex-column hidden-container" id="form-cocktails">
                                     <input id="cocktailName" type="text" placeholder="Cocktail Name">
-                                    <input id="ingredients" type="text" placeholder="Add Ingredints" title="splits ingredints by ','">
-                                    <input id="image" type="text" placeholder="Add image URL">
+                                    <input id="ingredients" type="text" placeholder="Add Ingredints" title="Splits Ingredints By ','">
+                                    <input id="image" type="text" placeholder="Add Image URL">
                                     <button id="btn-admin" class="btn">Add Cocktail</button>                                    
                                 </form>                                                               
                             </div>
-                   
+                     
                     <!-- In this div I put my cocktail cards -->
                     <div id="cards-container" class="flex"></div>
                 </div>
@@ -107,16 +110,19 @@
                 <a href="#"><i class="fab fa-instagram"></i></a>
             </div>
             <div class="text-center">
-                <p>2021 All rights reserved ®</p>
+                <p>2021 All Rights Reserved ®</p>
             </div>
         </footer>
     </div>
+
     <script src="./js/toggleMenu.js"></script>
+    <script src="./js/src/MessageBoxClass.js"></script>
     <script src="./js/src/CocktailClass.js"></script>    
     <script src="./js/src/UserClass.js"></script>
     <script src="./js/src/RegisteredUserClass.js"></script>
     <script src="./js/src/ViewClass.js"></script>
     <script src="./js/src/OwnCocktailClass.js"></script>
     <script src="./js/cocktailsDomInit.js"></script>
+
 </body>
 </html>
