@@ -67,25 +67,30 @@ document.getElementById('login-form').addEventListener('submit', function (e) {
 // listener for form-cocktail, add a cocktail with information provided by the inputs//
 document.getElementById('form-cocktails').addEventListener('submit', function (e) {
     e.preventDefault();
-    let name = document.getElementById('cocktailName').value;
-    let ingredients = document.getElementById('ingredients').value;
-    let ingredientsArray = ingredients.split(",");
-    let imageUrl = document.getElementById('image').value;
-    let id = bar.getCocktails().length + 1;
-    let cocktail = new Cocktail(name, ingredientsArray, imageUrl);
-    cocktail.setId(id);
+    let name: string = document.getElementById('cocktailName').value;
+    let ingredients: string = document.getElementById('ingredients').value;
+    let ingredientsArray: string[] = ingredients.split(",");
+    let imageUrl: string = document.getElementById('image').value; 
+       
+    let id: string = (bar.cocktails.length + 1).toString();
+    let cocktail: Cocktail= new Cocktail();
+
+    cocktail.name = name;
+    cocktail.ingredients = ingredientsArray;
+    cocktail.image = imageUrl;
+    cocktail.id = id;
     
     bar.addCocktail(cocktail);
 })
 
 document.getElementById('btn-favorites').addEventListener('click', function(){
-    if(bar.getActualUser() instanceof (RegisteredUser)){
+    if(bar.actualUser instanceof (RegisteredUser)){
         bar.filterFavorites();
         document.getElementById('btn-all').classList.toggle('hidden-container');
         document.getElementById('btn-favorites').classList.toggle('hidden-container');
     }
     else{
-        bar.messageBox().setMessage(`You Should Be Login For Favorite Option`);                     
+        bar.messageBox.message = `You Should Be Login For Favorite Option`;                     
         bar.showBox(); 
     }    
 })
@@ -108,11 +113,11 @@ const bar = new OwnCocktail();
 //  https://images.cocktailflow.com/v1/cocktail/w_300,h_540/cocktail_tropical_strawberry-1.png   trop Stawberry
 // https://images.cocktailflow.com/v1/cocktail/w_300,h_540/cocktail_caipirinha-1.png  caipi
 
-let pinaColada = new Cocktail('Pina Colada', ['White Run', 'Coconut Milk', 'Pineaple Juice', 'Crushed Ice'], 'https://images.cocktailflow.com/v1/cocktail/w_300,h_540/cocktail_pina_colada-1.png');
+/* let pinaColada = new Cocktail('Pina Colada', ['White Run', 'Coconut Milk', 'Pineaple Juice', 'Crushed Ice'], 'https://images.cocktailflow.com/v1/cocktail/w_300,h_540/cocktail_pina_colada-1.png');
 bar.addCocktail(pinaColada);
 let daikiri = new Cocktail('Daikiri', ['White Run', 'Sugar Syrup', 'Lime Juice', 'Ice Cubes'], 'https://images.cocktailflow.com/v1/cocktail/w_300,h_540/cocktail_daiquiri-1.png');
 bar.addCocktail(daikiri);
-
+*/
 /*let ginTonic = new Cocktail('Gin Tonic', ['Gin', 'Lime', 'Tonic', 'Ice Cubes'], 'https://images.cocktailflow.com/v1/cocktail/w_300,h_540/cocktail_gin_tonic-1.png');
 bar.addCocktail(ginTonic);
 
