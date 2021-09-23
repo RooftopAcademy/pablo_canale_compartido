@@ -60,8 +60,8 @@ class View {
         textCenter.appendChild(deleteButton);
 
         // adding the ingredients to the card        
-        let ingredients = cocktail.ingredients;        
-        let h1 = document.createElement('h1');
+        let ingredients: string[] = cocktail.ingredients;        
+        let h1: HTMLElement = document.createElement('h1');
         h1.innerText = 'Ingredients';
         textCenter.appendChild(h1);
         for (let i: number = 0; i < ingredients.length; i++){
@@ -108,14 +108,14 @@ class View {
     }    
    
     showCocktails(cocktails: Cocktail[]) {        
-        let cardContainer: HTMLElement = document.getElementById('cards-container');
+        const cardContainer: HTMLElement = document.getElementById('cards-container');
         cardContainer.innerHTML = '';        
-        for (let cocktail: number= 0; cocktail < cocktails.length; cocktail++)
+        for (let cocktail: number = 0; cocktail < cocktails.length; cocktail++)
             cardContainer.appendChild(this.createCocktail(cocktails[cocktail]));
     }
     
     showBox(messageBox : MessageBox){
-        let boxLocation: HTMLElement = document.getElementById('container-inside-login');        
+        const boxLocation: HTMLElement = document.getElementById('container-inside-login');        
         let div: HTMLElement = document.createElement('div');
         div.id = 'message';
         div.classList.add('message', 'flex-column');
