@@ -64,11 +64,16 @@ class OwnCocktail {
             this._cocktails = await this.getCocktailsApi();
             this._view.showCocktails(this._cocktails);       
         }
-    async deleteCocktail(id: number){
+    async deleteCocktail(id: string){
         //remove element with id 
-
+        let newId: string = id;
+        if(id.charAt[0]== '-'){
+            newId = '';
+            for(let i: number = 1; i < id.length; i++)
+                newId += id[i];
+        }
         // Estoy realmente espera a que se borre en la api?
-        await this.deleteCocktailApi(id); 
+        await this.deleteCocktailApi(newId); 
         this._cocktails = await this.getCocktailsApi();
         //this.cocktails.splice(cocktail.id - 1, 1);   <------< Esto lo usaba antes...              
         this._view.showCocktails(this._cocktails);       
@@ -106,7 +111,7 @@ class OwnCocktail {
         return cocktails; 
     }
     
-    async deleteCocktailApi(id: number){ 
+    async deleteCocktailApi(id: string){ 
         try{
             await fetch(`${this._urlApi}Cocktail/${id}`,{
                 "method":"DELETE"
