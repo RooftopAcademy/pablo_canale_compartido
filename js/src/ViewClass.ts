@@ -1,12 +1,6 @@
 // This class makes the wiew in HTML//
-interface FavoriteEvent extends MouseEvent{
-    target: HTMLElement
-}
 
 class View {
-
-
-
     createCocktail(cocktail: Cocktail) {     
        
         // This is a example of flip cocktail cards that I'm creating with the nodes//
@@ -40,11 +34,11 @@ class View {
         cardContainer.classList.add('card-container')
         let front: HTMLElement= document.createElement('div');
         front.classList.add('card-front');
-        let cardText = document.createElement('div');
+        let cardText: HTMLElement = document.createElement('div');
         cardText.classList.add('card-text', 'flex-column', 'center');
-        let textCenter = document.createElement('div');
+        let textCenter: HTMLElement = document.createElement('div');
         textCenter.classList.add('text-center');
-        let back = document.createElement('div');
+        let back: HTMLElement = document.createElement('div');
         back.classList.add('card-back', 'text-center');
 
         // Creating the button trashcan for delete 
@@ -53,10 +47,10 @@ class View {
         deleteButton.innerHTML += 'delete';
         deleteButton.id = `-${cocktail.id}`;        
         deleteButton.addEventListener('click', 
-        function (e: MouseEvent){
+        function (this: HTMLElement){
             if (bar.actualUser instanceof RegisteredUser)
 
-                bar.deleteCocktail(-(e.currentTarget.id));       
+                bar.deleteCocktail(this.id);       
             else{
                 bar.messageBox.message = `You Should Be Login For Delete Option`;                       
                 bar.showBox();  
@@ -70,8 +64,8 @@ class View {
         let h1 = document.createElement('h1');
         h1.innerText = 'Ingredients';
         textCenter.appendChild(h1);
-        for (let i = 0; i < ingredients.length; i++){
-            let p = document.createElement('p');
+        for (let i: number = 0; i < ingredients.length; i++){
+            let p: HTMLElement = document.createElement('p');
             p.innerText = `${ingredients[i]}`;
             textCenter.appendChild(p);
         }
@@ -82,9 +76,9 @@ class View {
         star.id = cocktail.id;
         star.addEventListener('click', 
         // clicked stars in cards add cocktail to favorite if the user its registered//
-            function (e: FavoriteEvent) {
+            function (this: HTMLElement) {
                 if (bar.actualUser instanceof RegisteredUser) {                    
-                    const cocktailFavoriteId: string = e.target.id;
+                    const cocktailFavoriteId: string = this.id;
                     const cocktailFavorite = bar.cocktailFromId(cocktailFavoriteId);
                     bar.actualUser.addFavorite(cocktailFavorite);
 
@@ -113,23 +107,23 @@ class View {
         return card;
     }    
    
-    showCocktails(cocktails) {        
-        let cardContainer = document.getElementById('cards-container');
+    showCocktails(cocktails: Cocktail[]) {        
+        let cardContainer: HTMLElement = document.getElementById('cards-container');
         cardContainer.innerHTML = '';        
-        for (let cocktail = 0; cocktail < cocktails.length; cocktail++)
+        for (let cocktail: number= 0; cocktail < cocktails.length; cocktail++)
             cardContainer.appendChild(this.createCocktail(cocktails[cocktail]));
     }
     
     showBox(messageBox : MessageBox){
-        let boxLocation = document.getElementById('container-inside-login');        
-        let div = document.createElement('div');
+        let boxLocation: HTMLElement = document.getElementById('container-inside-login');        
+        let div: HTMLElement = document.createElement('div');
         div.id = 'message';
         div.classList.add('message', 'flex-column');
 
-        let p = document.createElement('p');
+        let p: HTMLElement = document.createElement('p');
         p.innerText = `${messageBox.message}`
 
-        let buttonBox = document.createElement('button');
+        let buttonBox: HTMLElement = document.createElement('button');
         buttonBox.id= 'btn-box'
         buttonBox.classList.add('btn');
         buttonBox.innerText = 'Accept';
