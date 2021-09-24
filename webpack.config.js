@@ -3,8 +3,8 @@ const path = require('path');
 
 module.exports = {
     //Señalo donde esta el archivo de donde voy a tomar los ts
-    entry: ['./src/index.ts', './src/CocktailClass.ts', './src/cocktailsDomInit.ts', './src/MessageBoxClass.ts',
-'./src/OwnCocktailClass.ts', './src/RegisteredUserClass.ts', './src/toggleMenu.ts', './src/UserClass.ts', './src/ViewClass.ts'],
+    entry: ['./src/OwnCocktailClass.ts','./src/cocktailsDomInit.ts', './src/ViewClass.ts', './src/CocktailClass.ts',
+     './src/MessageBoxClass.ts', './src/RegisteredUserClass.ts', './src/toggleMenu.ts', './src/UserClass.ts', ],
     module:{
         rules: [
             {
@@ -17,6 +17,11 @@ module.exports = {
                 include:[path.resolve(__dirname, 'src')]
             }
         ]
+    },
+
+    //Solucion, no me andaban los imports sin esto
+    resolve: {
+        extensions: ['.ts']
     },
     output: {
         //nombre de archivo de salida con la compilacion, va en formato js
