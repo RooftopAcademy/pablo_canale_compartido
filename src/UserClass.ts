@@ -2,10 +2,10 @@
 class User {
 
     protected _name: string;
-    protected _pass: number;
+    protected _pass: string;
     constructor() {
         this._name = '';
-        this._pass = NaN;
+        this._pass = '';
     }
     
 }
