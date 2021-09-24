@@ -1,15 +1,20 @@
 
-
+export interface SubmitEvent {
+    explicitOriginalTarget:HTMLElement
+}
 
 /****************************** DOM ***************************************/
 
 // Listener for login form, register and login buttons//
+const formLogin :HTMLFormElement = document.getElementById('login-form') as HTMLFormElement;
+formLogin.addEventListener('submit', (event: Event) => {
+    event.preventDefault();
+    const submitEvent = event as unknown as SubmitEvent;
+    const submitButton = submitEvent.explicitOriginalTarget as HTMLElement;
 
-document.getElementById('login-form').addEventListener('submit', function (e) {
-    e.preventDefault();
-    if (e.submitter.id == 'btn-register') {
-        let name: string = document.getElementById('username').value;
-        let pass: number  = document.getElementById('pass').value;
+    if (submitButton.id == 'btn-register') {
+        let name :string = (<HTMLInputElement>document.getElementById('username')).value;
+        let pass :string = (<HTMLInputElement>document.getElementById('pass')).value;
         if( !(name === '') && !(pass === undefined)){
             let user : RegisteredUser = new RegisteredUser();
             user.name = name;
@@ -24,11 +29,11 @@ document.getElementById('login-form').addEventListener('submit', function (e) {
         }
     }
 
-    if (e.submitter.id == 'btn-login') {
+    if (submitButton.id == 'btn-login') {
 
-        let name = document.getElementById('username').value;
-        let pass = document.getElementById('pass').value;
-        if( !(name === '') && !(pass === '')){
+        let name :string = (<HTMLInputElement>document.getElementById('username')).value;
+        let pass :string = (<HTMLInputElement>document.getElementById('pass')).value;
+        if( !(name === '') && !(pass =='')){
             if(bar.users.length != 0){
                 // SEGURAMENTE ESTO DE ADEALNTE ESTA MAL, NO DEBERIA LLAMAR A UNA FUNCION GETPASS DESDE ACA, ENCONTRAR UNA FUTURA SOLUCION DESPUES... ZzZzZzzZzZZzzZZ
                 for (let i = 0; i < bar.users.length; i++) {
@@ -36,8 +41,8 @@ document.getElementById('login-form').addEventListener('submit', function (e) {
                     if (user.name == name) {
                         if (user.pass == pass) {
                             bar.actualUser= user;                            
-                            document.getElementById('form-cocktails').classList.toggle('hidden-container');
-                            document.getElementById('login-form').classList.toggle('hidden-container');
+                            document.getElementById('form-cocktails')?.classList.toggle('hidden-container');
+                            document.getElementById('login-form')?.classList.toggle('hidden-container');
                             bar.messageBox.message= `Welcome ${user.name}!`;                            
                             bar.showBox();                     
                         }
@@ -63,14 +68,16 @@ document.getElementById('login-form').addEventListener('submit', function (e) {
         }
     }
 })
+const formCocktails :HTMLFormElement = document.getElementById('form-cocktails') as HTMLFormElement;
+formLogin.addEventListener('submit', (event: Event) => {
+    event.preventDefault();
+    const submitEvent = event as unknown as SubmitEvent;
+    const submitButton = submitEvent.explicitOriginalTarget as HTMLElement;// listener for form-cocktail, add a cocktail with information provided by the inputs//
 
-// listener for form-cocktail, add a cocktail with information provided by the inputs//
-document.getElementById('form-cocktails').addEventListener('submit', function (e) {
-    e.preventDefault();
-    let name: string = document.getElementById('cocktailName').value;
-    let ingredients: string = document.getElementById('ingredients').value;
+    let name: string = (<HTMLInputElement>document.getElementById('cocktailName')).value;
+    let ingredients: string = (<HTMLInputElement>document.getElementById('ingredients')).value;
     let ingredientsArray: string[] = ingredients.split(",");
-    let imageUrl: string = document.getElementById('image').value; 
+    let imageUrl: string = (<HTMLInputElement>document.getElementById('image')).value; 
        
     let id: string = (bar.cocktails.length + 1).toString();
     let cocktail: Cocktail= new Cocktail();
@@ -83,11 +90,11 @@ document.getElementById('form-cocktails').addEventListener('submit', function (e
     bar.addCocktail(cocktail);
 })
 
-document.getElementById('btn-favorites').addEventListener('click', function(){
+document.getElementById('btn-favorites')?.addEventListener('click', function(){
     if(bar.actualUser instanceof (RegisteredUser)){
         bar.filterFavorites();
-        document.getElementById('btn-all').classList.toggle('hidden-container');
-        document.getElementById('btn-favorites').classList.toggle('hidden-container');
+        document.getElementById('btn-all')?.classList.toggle('hidden-container');
+        document.getElementById('btn-favorites')?.classList.toggle('hidden-container');
     }
     else{
         bar.messageBox.message = `You Should Be Login For Favorite Option`;                     
@@ -95,10 +102,10 @@ document.getElementById('btn-favorites').addEventListener('click', function(){
     }    
 })
  
-document.getElementById('btn-all').addEventListener('click', function(){
+document.getElementById('btn-all')?.addEventListener('click', function(){
     bar.showCocktails();
-    document.getElementById('btn-all').classList.toggle('hidden-container');
-    document.getElementById('btn-favorites').classList.toggle('hidden-container');
+    document.getElementById('btn-all')?.classList.toggle('hidden-container');
+    document.getElementById('btn-favorites')?.classList.toggle('hidden-container');
 });
 
 //My bar object//
