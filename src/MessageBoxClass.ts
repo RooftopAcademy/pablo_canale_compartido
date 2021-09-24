@@ -1,5 +1,9 @@
 class MessageBox{
     private _message: string; 
+
+    constructor(){
+        this._message = '';
+    }
     
     get message(): string{
         return this._message;
