@@ -9,13 +9,13 @@ class RegisteredUser extends User {
     set name(name: string){
         this._name = name;
     }
-    get name() {
+    get name() : string {
         return this._name;
     }
-    set pass(pass){
+    set pass(pass: string){
         this._pass = pass;
     }
-    get pass() {
+    get pass() :string {
         return this._pass;
     }
 
