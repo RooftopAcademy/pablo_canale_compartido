@@ -5,6 +5,13 @@ class Cocktail {
     private _image : string;
     private _id : string;
 
+    constructor(){
+        this._name = '';
+        this._ingredients = [];
+        this._image = '';
+        this._id = '';
+    }
+
     get id(): string{
         return this._id;
     }
