@@ -1,4 +1,6 @@
-class OwnCocktail {
+import View from './ViewClass';
+
+export default class OwnCocktail {
 
     private _users: RegisteredUser[];
     private _view: View;
