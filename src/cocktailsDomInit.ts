@@ -3,19 +3,21 @@ export interface SubmitEvent {
     explicitOriginalTarget:HTMLElement
 }
 
+import OwnCocktail from './OwnCocktailClass';
 /****************************** DOM ***************************************/
 
 // Listener for login form, register and login buttons//
 const formLogin :HTMLFormElement = document.getElementById('login-form') as HTMLFormElement;
 formLogin.addEventListener('submit', (event: Event) => {
     event.preventDefault();
+    //I condired submit event as submiter event and then submiter event as htmlELement for the button id
     const submitEvent = event as unknown as SubmitEvent;
     const submitButton = submitEvent.explicitOriginalTarget as HTMLElement;
 
     if (submitButton.id == 'btn-register') {
         let name :string = (<HTMLInputElement>document.getElementById('username')).value;
         let pass :string = (<HTMLInputElement>document.getElementById('pass')).value;
-        if( !(name === '') && !(pass === undefined)){
+        if( !(name === '') && !(pass === '')){
             let user : RegisteredUser = new RegisteredUser();
             user.name = name;
             user.pass = pass;
@@ -110,7 +112,8 @@ document.getElementById('btn-all')?.addEventListener('click', function(){
 
 //My bar object//
 
-const bar = new OwnCocktail();
+export const bar = new OwnCocktail();
+
 
 
 //Just for practice// 
