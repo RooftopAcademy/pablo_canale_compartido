@@ -66,12 +66,9 @@ class OwnCocktail {
         }
     async deleteCocktail(id: string){
         //remove element with id 
-        let newId: string = id;
-        if(id.charAt[0]== '-'){
-            newId = '';
-            for(let i: number = 1; i < id.length; i++)
-                newId += id[i];
-        }
+        let newId: string = '';       
+        for(let i: number = 1; i < id.length; i++)
+            newId += id[i];        
         // Estoy realmente espera a que se borre en la api?
         await this.deleteCocktailApi(newId); 
         this._cocktails = await this.getCocktailsApi();
