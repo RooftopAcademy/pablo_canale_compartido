@@ -108,14 +108,16 @@ class View {
     }    
    
     showCocktails(cocktails: Cocktail[]) {        
-        const cardContainer: HTMLElement = document.getElementById('cards-container');
-        cardContainer.innerHTML = '';        
-        for (let cocktail: number = 0; cocktail < cocktails.length; cocktail++)
-            cardContainer.appendChild(this.createCocktail(cocktails[cocktail]));
+        const cardContainer: HTMLElement | null = document.getElementById('cards-container');
+        if(cardContainer != null ){
+            cardContainer.innerHTML = '';        
+            for (let cocktail: number = 0; cocktail < cocktails.length; cocktail++)
+                cardContainer.appendChild(this.createCocktail(cocktails[cocktail]));
+        }
     }
     
     showBox(messageBox : MessageBox){
-        const boxLocation: HTMLElement = document.getElementById('container-inside-login');        
+        const boxLocation: HTMLElement | null = document.getElementById('container-inside-login');        
         let div: HTMLElement = document.createElement('div');
         div.id = 'message';
         div.classList.add('message', 'flex-column');
@@ -127,13 +129,13 @@ class View {
         buttonBox.id= 'btn-box'
         buttonBox.classList.add('btn');
         buttonBox.innerText = 'Accept';
-        buttonBox.addEventListener('click', function(){
-           boxLocation.removeChild(div);
+        buttonBox.addEventListener('click', function(){            
+           boxLocation?.removeChild(div);
         })
         
         div.appendChild(p);
         div.appendChild(buttonBox);
-        boxLocation.prepend(div);
+        boxLocation?.prepend(div);
         div.scrollIntoView();      
     }
 
