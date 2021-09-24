@@ -1,6 +1,6 @@
 // This class makes the wiew in HTML//
-
-class View {
+import{bar} from './cocktailsDomInit';
+ export default class View {
     createCocktail(cocktail: Cocktail) {     
        
         // This is a example of flip cocktail cards that I'm creating with the nodes//
@@ -140,3 +140,4 @@ class View {
     }
 
 }
+
