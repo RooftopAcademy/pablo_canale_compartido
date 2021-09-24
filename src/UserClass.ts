@@ -4,8 +4,8 @@ class User {
     protected _name: string;
     protected _pass: number;
     constructor() {
-        this._name = undefined;
-        this._pass = undefined;
+        this._name = '';
+        this._pass = NaN;
     }
     
 }
