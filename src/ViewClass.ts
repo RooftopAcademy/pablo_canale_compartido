@@ -1,7 +1,12 @@
 // This class makes the wiew in HTML//
-import{bar} from './cocktailsDomInit';
+import Cocktail from './CocktailInterface';
+import{bar} from './index';
+import MessageBox from './MessageBoxClass';
+import RegisteredUser from './RegisteredUserClass';
+
  export default class View {
-    createCocktail(cocktail: Cocktail) {     
+    createCocktail(cocktail: Cocktail) {    
+       
        
         // This is a example of flip cocktail cards that I'm creating with the nodes//
 
@@ -58,9 +63,10 @@ import{bar} from './cocktailsDomInit';
         });
 
         textCenter.appendChild(deleteButton);
-
+        
         // adding the ingredients to the card        
-        let ingredients: string[] = cocktail.ingredients;        
+        let ingredients: string[] = cocktail.ingredients; 
+          
         let h1: HTMLElement = document.createElement('h1');
         h1.innerText = 'Ingredients';
         textCenter.appendChild(h1);
@@ -107,7 +113,8 @@ import{bar} from './cocktailsDomInit';
         return card;
     }    
    
-    showCocktails(cocktails: Cocktail[]) {        
+    showCocktails(cocktails: Cocktail[]) {  
+             
         const cardContainer: HTMLElement | null = document.getElementById('cards-container');
         if(cardContainer != null ){
             cardContainer.innerHTML = '';        
