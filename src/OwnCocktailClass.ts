@@ -1,4 +1,9 @@
+import Cocktail from './CocktailInterface';
+import MessageBox from './MessageBoxClass';
+import RegisteredUser from './RegisteredUserClass';
+import User from './UserClass';
 import View from './ViewClass';
+
 
 export default class OwnCocktail {
 
@@ -63,7 +68,7 @@ export default class OwnCocktail {
 
     async addCocktail(cocktail : Cocktail) {         
             await this.postCocktailApi(cocktail);
-            this._cocktails = await this.getCocktailsApi();
+            this._cocktails = await this.getCocktailsApi();           
             this._view.showCocktails(this._cocktails);       
         }
     async deleteCocktail(id: string){
@@ -93,10 +98,14 @@ export default class OwnCocktail {
     
     async getCocktailsApi(){        
         let cocktails: Cocktail[];
-        try{              
+        
+        try{    
+                    
             let res = await fetch(`${this._urlApi}Cocktail`);        
-            cocktails = await res.json();                   
-            if(res.ok){                               
+            cocktails = await res.json();
+                                       
+            if(res.ok){ 
+                
             }    
             else{
                 cocktails=[];
