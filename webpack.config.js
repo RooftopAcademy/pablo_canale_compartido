@@ -2,9 +2,9 @@
 const path = require('path');
 
 module.exports = {
+    mode: 'development',
     //Señalo donde esta el archivo de donde voy a tomar los ts
-    entry: ['./src/OwnCocktailClass.ts','./src/cocktailsDomInit.ts', './src/ViewClass.ts', './src/CocktailClass.ts',
-     './src/MessageBoxClass.ts', './src/RegisteredUserClass.ts', './src/toggleMenu.ts', './src/UserClass.ts', ],
+    entry: './src/index.ts',
     module:{
         rules: [
             {
@@ -21,9 +21,10 @@ module.exports = {
 
     //Solucion, no me andaban los imports sin esto
     resolve: {
-        extensions: ['.ts']
+        extensions: ['.ts','.js']
     },
     output: {
+        publicPath: 'public',
         //nombre de archivo de salida con la compilacion, va en formato js
         filename: 'bundle.js',
         //__dirname hace referencia al lugar absoluto donde esta ubicado mis archivos y public es la carpeta de destino, creo un "camino absoluto" entre ambas carpetas
