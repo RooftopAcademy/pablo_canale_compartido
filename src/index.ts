@@ -2,99 +2,28 @@
 
 
 import OwnCocktail from './OwnCocktailClass';
-import Cocktail from './CocktailInterface';
 import RegisteredUser from './RegisteredUserClass';
+import router from './router/index.router';
+
+
+//My bar object//
+
+export const bar = new OwnCocktail();
+
+window.addEventListener('hashchange', () => {
+    router(window.location.hash)});
+
 
 /****************************** DOM ***************************************/
 document.getElementsByClassName('arrow-down')[0].addEventListener('click', toggleMenu);
+
+document.getElementsByClassName('arrow-up')[0].addEventListener('click', toggleMenu);
+
 function toggleMenu() : void{    
     document.getElementById('ul-btns')?.classList.toggle("show");
-}
+}    
 
-// Listener for login form, register and login buttons//
-const formLogin :HTMLFormElement = document.getElementById('login-form') as HTMLFormElement;
-formLogin.addEventListener('submit', function(event: Event ) {
-    event.preventDefault();
-    //I condired submit event as submiter event and then submiter event as htmlELement for the button id
-    const submitEvent = event as unknown as SubmitEvent;    
-    if (submitEvent.submitter?.id == 'btn-register') {
-        let name :string = (<HTMLInputElement>document.getElementById('username')).value;
-        let pass :string = (<HTMLInputElement>document.getElementById('pass')).value;
-        if( !(name === '') && !(pass === '')){
-            let user : RegisteredUser = new RegisteredUser();
-            user.name = name;
-            user.pass = pass;
-            bar.addUser(user);
-            bar.messageBox.message = 'Congratulations! You Are Registered';               
-            bar.showBox();
-        }
-        else{
-            bar.messageBox.message = 'Usernama And Password Required For Registration';               
-            bar.showBox();
-        }
-    }
 
-    if (submitEvent.submitter?.id == 'btn-login') {
-
-        let name :string = (<HTMLInputElement>document.getElementById('username')).value;
-        let pass :string = (<HTMLInputElement>document.getElementById('pass')).value;
-        if( !(name === '') && !(pass =='')){
-            if(bar.users.length != 0){
-                // SEGURAMENTE ESTO DE ADEALNTE ESTA MAL, NO DEBERIA LLAMAR A UNA FUNCION GETPASS DESDE ACA, ENCONTRAR UNA FUTURA SOLUCION DESPUES... ZzZzZzzZzZZzzZZ
-                for (let i = 0; i < bar.users.length; i++) {
-                    let user = bar.users[i];
-                    if (user.name == name) {
-                        if (user.pass == pass) {
-                            bar.actualUser= user;                            
-                            document.getElementById('form-cocktails')?.classList.toggle('hidden-container');
-                            document.getElementById('login-form')?.classList.toggle('hidden-container');
-                            bar.messageBox.message= `Welcome ${user.name}!`;                            
-                            bar.showBox();                     
-                        }
-                        else{
-                            bar.messageBox.message = `Username Or Password Incorrect!`;                           
-                            bar.showBox(); 
-                            }               
-                    }
-                    else{
-                    bar.messageBox.message= `Username Or Password Incorrect!`;                     
-                    bar.showBox();  
-                    }
-                }
-            }
-            else{
-                bar.messageBox.message= `No Users Registered`;                     
-                bar.showBox();  
-            }    
-        }
-        else{
-            bar.messageBox.message= `Username And Password Required`;                     
-                bar.showBox(); 
-        }
-    }
-})
-const formCocktails :HTMLFormElement = document.getElementById('form-cocktails') as HTMLFormElement;
-formCocktails.addEventListener('submit', function(this:HTMLFormElement, event: Event ) {
-    event.preventDefault();
-    // listener for form-cocktail, add a cocktail with information provided by the inputs//
-
-    let name: string = (<HTMLInputElement>document.getElementById('cocktailName')).value;
-    let ingredients: string = (<HTMLInputElement>document.getElementById('ingredients')).value;
-    let ingredientsArray: string[] = ingredients.split(",");
-    let imageUrl: string = (<HTMLInputElement>document.getElementById('image')).value; 
-    
-    let id: string = (bar.cocktails.length + 1).toString();
-    
-    let cocktail: Cocktail ={
-        name: name,
-        ingredients: ingredientsArray,
-        image: imageUrl,
-        id: id
-    };   
-    
-    
-    bar.addCocktail(cocktail);
-})
 
 document.getElementById('btn-favorites')?.addEventListener('click', function(){
     if(bar.actualUser instanceof (RegisteredUser)){
@@ -114,9 +43,6 @@ document.getElementById('btn-all')?.addEventListener('click', function(){
     document.getElementById('btn-favorites')?.classList.toggle('hidden-container');
 });
 
-//My bar object//
-
-export const bar = new OwnCocktail();
 
 
 
