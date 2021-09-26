@@ -49,18 +49,17 @@
                         <a href="index.html">
                             <li>HOME</li>
                         </a>
-                        <a href="cocktails.html">
+                        <a href="#/cocktails">
                             <li>COCKTAILS</li>
                         </a>
                         <a href="#">
                             <li>RECIPES</li>
                         </a>
-                        <a href="#">
-                            <li>CONTACT US</li>
-                        </a>
-                        <a href="#">
+                        <a href="#/explanations">
+                            <li>WEB EXPLANATIONS</li>
+                        </a>                        
                             <li class="arrow-up">
-                                <div onclick="toggleMenu()">
+                                <div >
                                     <span class="material-icons-two-tone">
                                         expand_less
                                     </span>
@@ -74,36 +73,15 @@
             </nav>
 
             <main>
+                <div class="wrapper" id="main-container">
+                    <h1 class="text-center">WELCOME TO MY SPA WEB!</h1>                
+                </div>
                 
-                <div class="wrapper">                    
-                    <div id="login-container" class="flex-row">                       
-                            <!-- Need Css -->
-                            <div  id="container-inside-login"class="flex-column">
-                            <div class="form-container">
-                                <form class="form flex-column" id="login-form" >
-                                    <input id="username" type="text" placeholder="Username" >
-                                    <input id="pass" type="password" placeholder="  Password" >
-                                    <button class="btn" id="btn-login">Login</button>
-                                    <button class="btn" id="btn-register">Register</button>                                   
-                                </form>
-                            </div>
-                        
-                            <div class="form-container">
-                                <form class="form flex-column hidden-container" id="form-cocktails">
-                                    <input id="cocktailName" type="text" placeholder="Cocktail Name">
-                                    <input id="ingredients" type="text" placeholder="Add Ingredients split by ','" title="Splits Ingredients By ','">
-                                    <input id="image" type="text" placeholder="Add Image URL">
-                                    <button id="btn-admin" class="btn">Add Cocktail</button>                                    
-                                </form>                                                               
-                            </div>
-                        </div>
-                    </div>                    
-                            <!-- In this div I put my cocktail cards--> 
-                    <div id="cards-container" class="flex"></div>
-
+              
                 </div>
             </main>
         </dir>
+
 
         <footer class="flex-column text-center">
             <div id="socials" class="flex-row space-evenly">
