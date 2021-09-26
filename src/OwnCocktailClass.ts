@@ -45,7 +45,7 @@ export default class OwnCocktail {
         this._users.push(user);      
     }
 
-    corrorateUser(name: string, pass: string){
+    corroborateUser(name: string, pass: string){
         let result: boolean = false;
         for (let i = 0; i < this.users.length; i++) {
 
