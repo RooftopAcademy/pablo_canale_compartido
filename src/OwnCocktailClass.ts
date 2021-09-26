@@ -41,13 +41,30 @@ export default class OwnCocktail {
         this._actualUser = user;
     }
     ////////////////////////// METHODS /////////////////////////////////
-    filterFavorites(): void {   
-        if(this._actualUser instanceof RegisteredUser )     
-            this._view.showCocktails(this._actualUser.favorites);
-    }
     addUser(user: RegisteredUser) {        
         this._users.push(user);      
     }
+
+    corrorateUser(name: string, pass: string){
+        let result: boolean = false;
+        for (let i = 0; i < this.users.length; i++) {
+
+            let user = this.users[i];
+            if (user.name == name) 
+                if (user.pass == pass){
+                    result = true;
+                    this.actualUser = user;
+                }                   
+        }
+        return result;
+    }
+    
+    filterFavorites(): void {  
+
+        if(this._actualUser instanceof RegisteredUser )             
+            this._view.showCocktails(this._actualUser.favorites);
+    }
+
     showBox(): void{
         this._view.showBox(this._messageBox);
     }
@@ -62,6 +79,32 @@ export default class OwnCocktail {
         cocktail++;
         return this._cocktails[cocktail];
     }
+    /////////////////////////////// SPA ////////////////////////////////////
+
+    async loadContent(route : string){ 
+        
+        let routeN: string = '';
+        for (let i = 2; i < route.length; i++) 
+            routeN += route[i];        
+
+        try{     
+            let response = await fetch(`./views/${routeN}.html`);
+            console.log(response);       
+            
+            if (response.ok){
+                let newContent : string = await response.text();
+                console.log(newContent)
+                this._view.showContent(newContent);  
+            }
+        }
+        catch(e){
+
+        }
+    }
+
+
+
+
     ////////////////////////////////////////////////////////////////
     //  COCKTAILS METHODS (ASYNC)  Podria hacer una clase con todos los metodos de la api?, tener un objeto api como atributo de esta clase...
     ///////////////////////////////////////////////////////////////
