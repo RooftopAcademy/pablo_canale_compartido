@@ -15,8 +15,15 @@ module.exports = {
                 use: 'ts-loader',
                 //aca quiero decirle que solo incluya los archivos que se encuentras en la carpeta src                
                 include:[path.resolve(__dirname, 'src')]
-            }
+            },
+            
         ]
+    },
+    devServer:{
+        port: 8080,
+        static: path.join(__dirname, 'public'),
+        open: true,
+        hot: true
     },
 
     //Solucion, no me andaban los imports sin esto
@@ -24,7 +31,7 @@ module.exports = {
         extensions: ['.ts','.js']
     },
     output: {
-        publicPath: 'public',
+        
         //nombre de archivo de salida con la compilacion, va en formato js
         filename: 'bundle.js',
         //__dirname hace referencia al lugar absoluto donde esta ubicado mis archivos y public es la carpeta de destino, creo un "camino absoluto" entre ambas carpetas
