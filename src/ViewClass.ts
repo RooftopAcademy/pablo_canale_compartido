@@ -4,7 +4,100 @@ import{bar} from './index';
 import MessageBox from './MessageBoxClass';
 import RegisteredUser from './RegisteredUserClass';
 
+
  export default class View {
+    showContent(content: string){
+        const nodeMain: HTMLElement | null = document.getElementById('main-container');
+        
+        let deleteChilds = (nodeMain: HTMLElement | null )=>{
+            while (nodeMain?.firstChild)
+                nodeMain.removeChild(nodeMain.firstChild);
+            };
+        deleteChilds(nodeMain);
+        
+        let node : HTMLDivElement = document.createElement("div"); 
+        node.innerHTML = content;
+            
+        nodeMain?.append(node);
+
+        document.getElementById('login-form')?.addEventListener('submit', (event: Event ) =>{
+            event.preventDefault();
+            //I condired submit event as submiter event and then submiter event as htmlELement for the button id
+            const submitEvent = event as unknown as SubmitEvent;
+        
+            if (submitEvent.submitter?.id == 'btn-register') {
+        
+                let name :string = (<HTMLInputElement>document.getElementById('username')).value;
+        
+                let pass :string = (<HTMLInputElement>document.getElementById('pass')).value;
+                
+                if( !(name === '') && !(pass === '')){
+        
+                    let user : RegisteredUser = new RegisteredUser();
+        
+                    user.name = name;
+                    user.pass = pass;
+                    bar.addUser(user);
+                    bar.messageBox.message = 'Congratulations! You Are Registered';               
+                    bar.showBox();
+                }
+                else{
+                    bar.messageBox.message = 'Usernama And Password Required For Registration';               
+                    bar.showBox();
+                }
+            } 
+        
+            else if (submitEvent.submitter?.id == 'btn-login'){
+        
+                let name :string = (<HTMLInputElement>document.getElementById('username')).value;
+                let pass :string = (<HTMLInputElement>document.getElementById('pass')).value;
+                if( !(name === '') && !(pass ==''))
+                    if(bar.users.length != 0){
+                        // HACER DE LO QUE ESTA MAS ADELANTE UN METODO PROPIO DE LA CLASE PARA CORROBORAR USERNAME Y PASSWRODS... ZzZzZzzZzZZzzZZ
+                        if(bar.corroborateUser(name, pass)){                                            
+                            document.getElementById('form-cocktails')?.classList.toggle('hidden-container');
+                            document.getElementById('login-form')?.classList.toggle('hidden-container');   
+                        
+                        }
+                        else{
+                            bar.messageBox.message= `asd Registered`;                     
+                            bar.showBox();  
+                        }    
+                   }
+                else{
+                    bar.messageBox.message= `Username And Password Required`;                     
+                        bar.showBox(); 
+                }
+            }        
+                
+        });
+
+        const formCocktails :HTMLFormElement = document.getElementById('form-cocktails') as HTMLFormElement;
+        
+        formCocktails.addEventListener('submit', function(this:HTMLFormElement, event: Event ) {
+            event.preventDefault();
+            // listener for form-cocktail, add a cocktail with information provided by the inputs//
+
+            let name: string = (<HTMLInputElement>document.getElementById('cocktailName')).value;
+            let ingredients: string = (<HTMLInputElement>document.getElementById('ingredients')).value;
+            let ingredientsArray: string[] = ingredients.split(",");
+            let imageUrl: string = (<HTMLInputElement>document.getElementById('image')).value; 
+            
+            let id: string = (bar.cocktails.length + 1).toString();
+            
+            let cocktail: Cocktail ={
+                name: name,
+                ingredients: ingredientsArray,
+                image: imageUrl,
+                id: id
+            }; 
+
+            bar.addCocktail(cocktail);
+        })
+
+
+    }
+     
     createCocktail(cocktail: Cocktail) {    
        
        
@@ -147,4 +240,6 @@ import RegisteredUser from './RegisteredUserClass';
     }
 
 }
+
+
 
