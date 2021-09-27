@@ -27,10 +27,13 @@
     color: #c5a47e; 
     
 }
-#login-container{
+#container-inside-login{
     background-color: #272727;
-    width: fit-content;
     padding: 20px;
+}
+#login-container{
+    
+    width: fit-content;    
     margin: auto;
 }
 
