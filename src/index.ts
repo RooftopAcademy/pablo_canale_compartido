@@ -2,8 +2,8 @@
 
 
 import OwnCocktail from './OwnCocktailClass';
-import RegisteredUser from './RegisteredUserClass';
 import router from './router/index.router';
+import { UserState } from './EnumUserState';
 
 
 //My bar object//
@@ -25,16 +25,15 @@ function toggleMenu() : void{
 
 
 
-document.getElementById('btn-favorites')?.addEventListener('click', function(){
-    if(bar.actualUser instanceof (RegisteredUser)){
+document.getElementById('btn-favorites')?.addEventListener('click', function(){    
+    
+    if(bar.actualUser.state == UserState.LOG_IN){
         bar.filterFavorites();
         document.getElementById('btn-all')?.classList.toggle('hidden-container');
         document.getElementById('btn-favorites')?.classList.toggle('hidden-container');
     }
-    else{
-        bar.messageBox.message = `You Should Be Login For Favorite Option`;                     
-        bar.showBox(); 
-    }    
+    else      
+        bar.showMessage(`You Should Be Login For Favorite Option`); 
 })
  
 document.getElementById('btn-all')?.addEventListener('click', function(){
