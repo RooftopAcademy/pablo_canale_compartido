@@ -1,7 +1,6 @@
 // This class makes the wiew in HTML//
 import Cocktail from './CocktailInterface';
 import{bar} from './index';
-import MessageBox from './MessageBoxClass';
 import RegisteredUser from './RegisteredUserClass';
 
 
@@ -37,38 +36,31 @@ import RegisteredUser from './RegisteredUserClass';
         
                     user.name = name;
                     user.pass = pass;
-                    bar.addUser(user);
-                    bar.messageBox.message = 'Congratulations! You Are Registered';               
-                    bar.showBox();
+                    bar.addUser(user);                            
+                    bar.showMessage('Congratulations! You Are Registered');
                 }
-                else{
-                    bar.messageBox.message = 'Usernama And Password Required For Registration';               
-                    bar.showBox();
-                }
+                else
+                    bar.showMessage('Usernama And Password Required For Registration');                
             } 
         
-            else if (submitEvent.submitter?.id == 'btn-login'){
+            else if (submitEvent.submitter?.id == 'btn-login'){  // ACA PODRIA IR UN ELSE SOLO PERO QUERIA QUE SE VIERA BIEN EL ID DEL BOTON AL QUE ESTOY CLICKEANDO
         
                 let name :string = (<HTMLInputElement>document.getElementById('username')).value;
                 let pass :string = (<HTMLInputElement>document.getElementById('pass')).value;
                 if( !(name === '') && !(pass ==''))
-                    if(bar.users.length != 0){
-                        // HACER DE LO QUE ESTA MAS ADELANTE UN METODO PROPIO DE LA CLASE PARA CORROBORAR USERNAME Y PASSWRODS... ZzZzZzzZzZZzzZZ
+                    if(bar.users.length != 0){                        
                         if(bar.corroborateUser(name, pass)){                                            
                             document.getElementById('form-cocktails')?.classList.toggle('hidden-container');
                             document.getElementById('login-form')?.classList.toggle('hidden-container');   
                         
                         }
-                        else{
-                            bar.messageBox.message= `asd Registered`;                     
-                            bar.showBox();  
-                        }    
-                   }
-                else{
-                    bar.messageBox.message= `Username And Password Required`;                     
-                        bar.showBox(); 
-                }
+                        else                                          
+                            bar.showMessage(`You Are Not Registered`); 
+                    }
+                else
+                    bar.showMessage(`Username And Password Required`); 
             }        
+                
                 
         });
 
@@ -149,9 +141,8 @@ import RegisteredUser from './RegisteredUserClass';
             if (bar.actualUser instanceof RegisteredUser)
 
                 bar.deleteCocktail(this.id);       
-            else{
-                bar.messageBox.message = `You Should Be Login For Delete Option`;                       
-                bar.showBox();  
+            else{                                 
+                bar.showMessage(`You Should Be Login For Delete Option`);  
             }   
         });
 
@@ -180,13 +171,11 @@ import RegisteredUser from './RegisteredUserClass';
                     const cocktailFavoriteId: string = this.id;
                     const cocktailFavorite = bar.cocktailFromId(cocktailFavoriteId);
                     bar.actualUser.addFavorite(cocktailFavorite);
-
-                    bar.messageBox.message = `Cocktail Added To Favorites`;                            
-                    bar.showBox();                      
+                                           
+                    bar.showMessage(`Cocktail Added To Favorites`);                      
                 }
-                else{
-                    bar.messageBox.message = `You Should Be Login For Favorite Option`;                            
-                    bar.showBox();  
+                else{                                             
+                    bar.showMessage(`You Should Be Login For Favorite Option`);  
                 }                   
             }
         );
@@ -216,27 +205,23 @@ import RegisteredUser from './RegisteredUserClass';
         }
     }
     
-    showBox(messageBox : MessageBox){
-        const boxLocation: HTMLElement | null = document.getElementById('container-inside-login');        
+    showMessage(message : string){
+        const boxLocation: HTMLElement | null = document.getElementById('login-container');        
         let div: HTMLElement = document.createElement('div');
         div.id = 'message';
         div.classList.add('message', 'flex-column');
 
         let p: HTMLElement = document.createElement('p');
-        p.innerText = `${messageBox.message}`
-
-        let buttonBox: HTMLElement = document.createElement('button');
-        buttonBox.id= 'btn-box'
-        buttonBox.classList.add('btn');
-        buttonBox.innerText = 'Accept';
-        buttonBox.addEventListener('click', function(){            
-           boxLocation?.removeChild(div);
+        p.innerText = `${message}`       
+        div.addEventListener('DOMNodeInsertedIntoDocument', () => {
+            window.setTimeout(function(){            
+                boxLocation?.removeChild(div);
+             }, 2200)
         })
-        
-        div.appendChild(p);
-        div.appendChild(buttonBox);
-        boxLocation?.prepend(div);
-        div.scrollIntoView();      
+        div.appendChild(p);       
+        boxLocation?.appendChild(div);
+        div.scrollIntoView(); 
+         
     }
 
 }
