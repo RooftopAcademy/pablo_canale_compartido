@@ -1,46 +1,43 @@
 import Cocktail from './CocktailInterface';
-import MessageBox from './MessageBoxClass';
 import RegisteredUser from './RegisteredUserClass';
-import User from './UserClass';
+import { UserState } from './EnumUserState';
 import View from './ViewClass';
-
+import { StatusCodes } from './EnumStatusCodes';
 
 export default class OwnCocktail {
 
     private _users: RegisteredUser[];
     private _view: View;
-    private _actualUser: User | RegisteredUser;
+    private _actualUser: RegisteredUser;
     private _cocktails: Cocktail[];
-    private _messageBox: MessageBox;
+    
     private readonly _urlApi: string;
 
     constructor() {
         this._users = [];
         this._view = new View();
-        this._actualUser = new User();
-        this._cocktails = [];
-        this._messageBox = new MessageBox();
+        this._actualUser = new RegisteredUser;
+        this._cocktails = [];        
         this._urlApi = 'https://6148b332035b3600175b9fd8.mockapi.io/Bar/1/'
     } 
     
     ////////////////////GETTERS AND SETTERS ////////////////////////////
-    get messageBox(){
-        return this._messageBox;
-    }
-
+  
     get cocktails() {
         return this._cocktails;
     }
     get users() {
         return this._users;
     }    
-    get actualUser(): User | RegisteredUser{
+    get actualUser(): RegisteredUser{
         return this._actualUser;
     };
-    set actualUser(user: RegisteredUser | User) {
+    set actualUser(user: RegisteredUser) {
         this._actualUser = user;
     }
+
     ////////////////////////// METHODS /////////////////////////////////
+
     addUser(user: RegisteredUser) {        
         this._users.push(user);      
     }
@@ -54,6 +51,7 @@ export default class OwnCocktail {
                 if (user.pass == pass){
                     result = true;
                     this.actualUser = user;
+                    this.actualUser.state = UserState.LOG_IN;
                 }                   
         }
         return result;
@@ -65,8 +63,8 @@ export default class OwnCocktail {
             this._view.showCocktails(this._actualUser.favorites);
     }
 
-    showBox(): void{
-        this._view.showBox(this._messageBox);
+    showMessage(message : string): void{
+        this._view.showMessage(message);
     }
     showCocktails(): void{
         this._view.showCocktails(this._cocktails);
@@ -101,9 +99,6 @@ export default class OwnCocktail {
 
         }
     }
-
-
-
 
     ////////////////////////////////////////////////////////////////
     //  COCKTAILS METHODS (ASYNC)  Podria hacer una clase con todos los metodos de la api?, tener un objeto api como atributo de esta clase...
