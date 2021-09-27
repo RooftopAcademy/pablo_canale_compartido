@@ -1,14 +1,14 @@
 import Cocktail from './CocktailInterface';
-import RegisteredUser from './RegisteredUserClass';
+import User from './UserClass';
 import { UserState } from './EnumUserState';
 import View from './ViewClass';
 import { StatusCodes } from './EnumStatusCodes';
 
 export default class OwnCocktail {
 
-    private _users: RegisteredUser[];
+    private _users: User[];
     private _view: View;
-    private _actualUser: RegisteredUser;
+    private _actualUser: User;
     private _cocktails: Cocktail[];
     
     private readonly _urlApi: string;
@@ -16,7 +16,7 @@ export default class OwnCocktail {
     constructor() {
         this._users = [];
         this._view = new View();
-        this._actualUser = new RegisteredUser;
+        this._actualUser = new User;
         this._cocktails = [];        
         this._urlApi = 'https://6148b332035b3600175b9fd8.mockapi.io/Bar/1/'
     } 
@@ -29,16 +29,16 @@ export default class OwnCocktail {
     get users() {
         return this._users;
     }    
-    get actualUser(): RegisteredUser{
+    get actualUser(): User{
         return this._actualUser;
     };
-    set actualUser(user: RegisteredUser) {
+    set actualUser(user: User) {
         this._actualUser = user;
     }
 
     ////////////////////////// METHODS /////////////////////////////////
 
-    addUser(user: RegisteredUser) {        
+    addUser(user: User) {        
         this._users.push(user);      
     }
 
@@ -59,7 +59,7 @@ export default class OwnCocktail {
     
     filterFavorites(): void {  
 
-        if(this._actualUser instanceof RegisteredUser )             
+        if(this._actualUser instanceof User )             
             this._view.showCocktails(this._actualUser.favorites);
     }
 

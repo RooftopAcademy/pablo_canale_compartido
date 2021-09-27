@@ -1,13 +1,12 @@
 // Registered user can add favorites to bar//
 
 import Cocktail from "./CocktailInterface";
-import User from "./UserInterface";
 import { UserState } from "./EnumUserState";
 
 
-export default class RegisteredUser implements User { 
-     _name: string;
-     _state: UserState;
+export default class User{ 
+    private _name: string;
+    private _state: UserState;
     private _favorites: Cocktail[];
     private _pass: string;
 

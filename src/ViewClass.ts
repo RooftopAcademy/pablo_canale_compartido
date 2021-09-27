@@ -1,7 +1,7 @@
 // This class makes the wiew in HTML//
 import Cocktail from './CocktailInterface';
 import{bar} from './index';
-import RegisteredUser from './RegisteredUserClass';
+import User from './UserClass';
 
 
  export default class View {
@@ -32,7 +32,7 @@ import RegisteredUser from './RegisteredUserClass';
                 
                 if( !(name === '') && !(pass === '')){
         
-                    let user : RegisteredUser = new RegisteredUser();
+                    let user : User = new User();
         
                     user.name = name;
                     user.pass = pass;
@@ -138,7 +138,7 @@ import RegisteredUser from './RegisteredUserClass';
         deleteButton.id = `-${cocktail.id}`;        
         deleteButton.addEventListener('click', 
         function (this: HTMLElement){
-            if (bar.actualUser instanceof RegisteredUser)
+            if (bar.actualUser instanceof User)
 
                 bar.deleteCocktail(this.id);       
             else{                                 
@@ -167,7 +167,7 @@ import RegisteredUser from './RegisteredUserClass';
         star.addEventListener('click', 
         // clicked stars in cards add cocktail to favorite if the user its registered//
             function (this: HTMLElement) {
-                if (bar.actualUser instanceof RegisteredUser) {                    
+                if (bar.actualUser instanceof User) {                    
                     const cocktailFavoriteId: string = this.id;
                     const cocktailFavorite = bar.cocktailFromId(cocktailFavoriteId);
                     bar.actualUser.addFavorite(cocktailFavorite);
