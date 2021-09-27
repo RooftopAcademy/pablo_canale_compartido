@@ -1,16 +1,28 @@
 // Registered user can add favorites to bar//
 
 import Cocktail from "./CocktailInterface";
-import User from "./UserClass";
+import User from "./UserInterface";
+import { UserState } from "./EnumUserState";
 
 
-export default class RegisteredUser extends User { 
-
+export default class RegisteredUser implements User { 
+     _name: string;
+     _state: UserState;
     private _favorites: Cocktail[];
+    private _pass: string;
 
     constructor() {
-        super();      
+        this._name = '';
+        this._state = UserState.LOG_OUT;
         this._favorites = [];
+        this._pass = '';
+    }
+
+    set state(uState : UserState){
+        this._state = uState;
+    }
+    get state(): UserState{
+        return this._state;
     }
 
     set name(name: string){
@@ -32,8 +44,10 @@ export default class RegisteredUser extends User {
         return this._favorites;
     }
 
+
     addFavorite(cocktail : Cocktail) {        
             this._favorites.push(cocktail)
     }
+
     
 }
