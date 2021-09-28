@@ -1,5 +1,6 @@
 // This class makes the wiew in HTML//
 import Cocktail from './CocktailInterface';
+import addCocktail from './formCocktails';
 import{bar} from './index';
 import User from './UserClass';
 
@@ -20,6 +21,7 @@ import User from './UserClass';
         nodeMain?.append(node);
 
         document.getElementById('login-form')?.addEventListener('submit', (event: Event ) =>{
+            
             event.preventDefault();
             //I condired submit event as submiter event and then submiter event as htmlELement for the button id
             const submitEvent = event as unknown as SubmitEvent;
@@ -66,27 +68,9 @@ import User from './UserClass';
 
         const formCocktails :HTMLFormElement = document.getElementById('form-cocktails') as HTMLFormElement;
         
-        formCocktails.addEventListener('submit', function(this:HTMLFormElement, event: Event ) {
-            event.preventDefault();
-            // listener for form-cocktail, add a cocktail with information provided by the inputs//
-
-            let name: string = (<HTMLInputElement>document.getElementById('cocktailName')).value;
-            let ingredients: string = (<HTMLInputElement>document.getElementById('ingredients')).value;
-            let ingredientsArray: string[] = ingredients.split(",");
-            let imageUrl: string = (<HTMLInputElement>document.getElementById('image')).value; 
-            
-            let id: string = (bar.cocktails.length + 1).toString();
-            
-            let cocktail: Cocktail ={
-                name: name,
-                ingredients: ingredientsArray,
-                image: imageUrl,
-                id: id
-            }; 
-
-            bar.addCocktail(cocktail);
-        })
-
+        formCocktails.addEventListener('submit', (event: Event)=>{
+            return addCocktail(event)
+        }); 
 
     }
      
