@@ -14,7 +14,6 @@ export default class OwnCocktail {
     private _cocktails: Cocktail[];
     private _cocktailService: CocktailService;
 
-
     constructor() {
         this._users = [];
         this._view = new View;
@@ -59,7 +58,7 @@ export default class OwnCocktail {
     deleteCocktail(id: string) {
 
         let newId: string = '';
-        for (let i: number = 1; i < id.length; i++)
+        for (let i: number = 1; i < id.length; i++) // le saco la "/".... Hay alguna forma mejor de hacer esto?
             newId += id[i];
 
         this._cocktailService.deleteCocktailApi(newId);
@@ -97,9 +96,7 @@ export default class OwnCocktail {
     }
 
     filterFavorites(): void {
-
-        if (this._actualUser instanceof User)
-            this._view.showCocktails(this._actualUser.favorites);
+        this._view.showCocktails(this._actualUser.favorites);
     }
 
     showMessage(message: string): void {
@@ -110,7 +107,8 @@ export default class OwnCocktail {
     async loadContent(route: string) {
 
         let routeN: string = '';
-        for (let i = 2; i < route.length; i++)
+
+        for (let i = 2; i < route.length; i++) // le saco el "#/.... esto esta bien? Mejor forma de hacer esto?"
             routeN += route[i];
 
         try {
