@@ -2,12 +2,8 @@ import Cocktail from "./CocktailInterface";
 import { bar } from "./index";
 
 export default class CocktailService {
-    addCocktailApi(cocktail: Cocktail) {
-        throw new Error('Method not implemented.');
-    }
 
     private readonly _urlApi: string = 'https://6148b332035b3600175b9fd8.mockapi.io/Bar/1/';
-
 
     async postCocktailApi(cocktail: Cocktail) {
         try {
@@ -45,6 +41,7 @@ export default class CocktailService {
             let res = await fetch(`${this._urlApi}Cocktail/${id}`, {
                 "method": "DELETE"
             });
+
             if (res.ok)
                 bar.cocktails = await this.getCocktailsApi();
         }
@@ -52,5 +49,4 @@ export default class CocktailService {
             alert("ERROR CATH DELETE COCKTAIL");
         }
     }
-
 }
