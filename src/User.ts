@@ -9,12 +9,17 @@ export default class User {
     private _state: UserState;
     private _favorites: Cocktail[];
     private _pass: string;
+    private _email: string;
 
     constructor() {
         this._name = '';
         this._state = UserState.LOG_OUT;
         this._favorites = [];
         this._pass = '';
+        this._email = '';
+    }
+    set email(email: string) {
+        this._email = email;
     }
 
     set state(uState: UserState) {
