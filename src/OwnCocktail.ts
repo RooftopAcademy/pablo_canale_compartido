@@ -50,19 +50,20 @@ export default class OwnCocktail {
         this._view.showCocktails(this._cocktails);
     }
 
-    addCocktail(cocktail: Cocktail): void {
-        this._cocktailService.postCocktailApi(cocktail);
+    async addCocktail(cocktail: Cocktail) {
+        await this._cocktailService.postCocktailApi(cocktail);
+        this._cocktails = await this._cocktailService.getCocktailsApi();
         this.showCocktails();
     }
 
-    deleteCocktail(id: string) {
+    async deleteCocktail(id: string) {
 
         let newId: string = '';
         for (let i: number = 1; i < id.length; i++) // le saco la "/".... Hay alguna forma mejor de hacer esto?
             newId += id[i];
 
-        this._cocktailService.deleteCocktailApi(newId);
-
+        await this._cocktailService.deleteCocktailApi(newId);
+        this._cocktails = await this._cocktailService.getCocktailsApi();
         this._view.showCocktails(this._cocktails);
     }
 
