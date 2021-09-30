@@ -36,10 +36,11 @@ export function registerUser(event: Event): void {
         user.email = email;
 
         bar.addUser(user);
-        bar.showMessage('You Are Now Registered')
+        bar.showMessage('You Are Now  Registered')
 
         document.getElementById('form-register')?.classList.toggle('hidden-container');
-        document.getElementById('login-form')?.classList.toggle('hidden-container');
+        document.getElementById('form-login')?.classList.toggle('hidden-container');
+        document.getElementById('btn-goLogin')?.classList.toggle('hidden-container')
     }
 
 
@@ -53,7 +54,7 @@ export function loginUser(event: Event): void {
 
     if (bar.corroborateUser(name, pass)) {
         document.getElementById('form-cocktails')?.classList.toggle('hidden-container');
-        document.getElementById('login-form')?.classList.toggle('hidden-container');
+        document.getElementById('form-login')?.classList.toggle('hidden-container');
     }
 
 }
