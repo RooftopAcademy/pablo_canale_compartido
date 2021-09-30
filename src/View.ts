@@ -9,13 +9,17 @@ import { loginUser } from './forms';
 
 export default class View {
     showContent(content: string) {
-        const nodeMain: HTMLElement = document.getElementById('main-container') as HTMLElement;
+        const nodeMain = document.getElementById('main-container') as HTMLElement;
         let node: HTMLDivElement = document.createElement("div");
 
         nodeMain.innerHTML = '';
         node.innerHTML = content;
         nodeMain.append(node);
-
+        document.getElementById('btn-goLogin')?.addEventListener('click', () => {
+            document.getElementById('form-register')?.classList.toggle('hidden-container');
+            document.getElementById('form-login')?.classList.toggle('hidden-container');
+            document.getElementById('btn-goLogin')?.classList.toggle('hidden-container')
+        })
         document.getElementById('form-register')?.addEventListener('submit', registerUser);
         document.getElementById('form-login')?.addEventListener('submit', loginUser);
         document.getElementById('form-cocktails')?.addEventListener('submit', addCocktail);
