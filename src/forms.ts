@@ -37,9 +37,12 @@ export function registerUser(event: Event): void {
 
         bar.addUser(user);
         bar.showMessage('You Are Now Registered')
+
+        document.getElementById('form-register')?.classList.toggle('hidden-container');
+        document.getElementById('login-form')?.classList.toggle('hidden-container');
     }
 
-    bar.showMessage('All Fields Required')
+
 }
 
 export function loginUser(event: Event): void {
@@ -48,8 +51,11 @@ export function loginUser(event: Event): void {
     let name: string = (<HTMLInputElement>document.getElementById('username')).value;
     let pass: string = (<HTMLInputElement>document.getElementById('pass')).value;
 
-    if (!bar.corroborateUser(name, pass))
-        bar.showMessage('Bad Password or Username')
+    if (bar.corroborateUser(name, pass)) {
+        document.getElementById('form-cocktails')?.classList.toggle('hidden-container');
+        document.getElementById('login-form')?.classList.toggle('hidden-container');
+    }
+
 }
 
 
