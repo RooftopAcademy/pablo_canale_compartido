@@ -1,9 +1,23 @@
 import Cocktail from '../interfaces/CocktailInterface';
 import { addCocktail, registerUser, loginUser } from '../forms';
+import { addFavorite, deleteCard } from '../cards';
+
 
 
 
 export default class View {
+
+    async fetchPage(route: string) {
+        try {
+            let response = await fetch(`${route}`);
+            if (response.ok) {
+                return await response.text();
+            }
+        }
+        catch (e) {
+            this.showMessage(`Error loadContent: ${e}`);
+        }
+    }
 
     showPage(content: string) {
         const nodeMain = document.getElementById('main-container') as HTMLElement;
@@ -17,9 +31,7 @@ export default class View {
             document.getElementById('form-login')?.classList.toggle('hidden-container');
             document.getElementById('btn-goLogin')?.classList.toggle('hidden-container')
         })
-        document.getElementById('form-register')?.addEventListener('submit', registerUser);
-        document.getElementById('form-login')?.addEventListener('submit', loginUser);
-        document.getElementById('form-cocktails')?.addEventListener('submit', addCocktail);
+
     }
 
     createCocktail(cocktail: Cocktail) {
@@ -54,6 +66,8 @@ export default class View {
         cardContainer.innerHTML = '';
         cocktails.forEach(cocktail => {
             cardContainer.innerHTML += this.createCocktail(cocktail);
+            console.log(document.getElementById(cocktail.id))
+            document.getElementById(cocktail.id).addEventListener('click', addFavorite)
         });
     }
 
