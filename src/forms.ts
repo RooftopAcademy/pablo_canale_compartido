@@ -1,6 +1,6 @@
-import Cocktail from "./CocktailInterface";
+import Cocktail from "./interfaces/CocktailInterface";
 import { bar } from "./index";
-import User from "./User";
+import User from "./entities/User";
 
 
 export function addCocktail(event: Event): void {

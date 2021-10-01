@@ -1,9 +1,9 @@
 
 
 
-import OwnCocktail from './OwnCocktail';
+import OwnCocktail from './entities/OwnCocktail';
 import router from './router/index.router';
-import { UserState } from './EnumUserState';
+import { UserState } from './enum/EnumUserState';
 
 
 //My bar object//

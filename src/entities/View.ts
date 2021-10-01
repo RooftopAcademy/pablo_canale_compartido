@@ -1,12 +1,11 @@
-import Cocktail from './CocktailInterface';
-import { addCocktail } from './forms';
-import { registerUser } from './forms';
-import { loginUser } from './forms';
+import Cocktail from '../interfaces/CocktailInterface';
+import { addCocktail, registerUser, loginUser } from '../forms';
+
 
 
 export default class View {
 
-    showContent(content: string) {
+    showPage(content: string) {
         const nodeMain = document.getElementById('main-container') as HTMLElement;
         let node: HTMLDivElement = document.createElement("div");
 
@@ -35,14 +34,14 @@ export default class View {
                             <div class="card-text flex-column center">
                                 <span id="-${cocktail.id}"class="trashcan material-icons-outlined">delete</span>
                                 <div class="text-center">
-                                    <h1>Ingredients</h1>
+                                    <u class="title" >Ingredients</u>
                                     ${ingredientList}     
                                     <span id="${cocktail.id}" class="star material-icons-outlined">star</span>
                                 </div>
                             </div>
                         </div>
                         <div class="card-back text-center">
-                            <h1 id="name-cocktail">${cocktail.name}</h1>
+                            <u class="title" id="name-cocktail">${cocktail.name}</u>
                             <img id="image" src="${cocktail.image}" />
                         </div>
                     </div>

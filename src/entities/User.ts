@@ -1,7 +1,7 @@
 // Registered user can add favorites to bar//
 
-import Cocktail from "./CocktailInterface";
-import { UserState } from "./EnumUserState";
+import Cocktail from "../interfaces/CocktailInterface";
+import { UserState } from "../enum/EnumUserState";
 
 export default class User {
 

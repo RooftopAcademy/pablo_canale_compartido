@@ -1,8 +1,8 @@
-import Cocktail from './CocktailInterface';
+import Cocktail from '../interfaces/CocktailInterface';
 import User from './User';
-import { UserState } from './EnumUserState';
+import { UserState } from '../enum/EnumUserState';
 import View from './View';
-import { StatusCodes } from './EnumStatusCodes';
+import { StatusCodes } from '../enum/EnumStatusCodes';
 import CocktailService from './CocktailService';
 
 
@@ -23,7 +23,7 @@ export default class OwnCocktail {
 
     }
 
-    ////////////////////GETTERS AND SETTERS ////////////////////////////
+    //* GETTERS AND SETTERS ////////////////////////////
     set cocktails(cocktails: Cocktail[]) {
         this.cocktails = cocktails;
     }
@@ -32,9 +32,6 @@ export default class OwnCocktail {
         return this._cocktails;
     }
 
-    get users() {
-        return this._users;
-    }
     get actualUser(): User {
         return this._actualUser;
     };
@@ -42,9 +39,9 @@ export default class OwnCocktail {
         this._actualUser = user;
     }
 
-    ////////////////////////// METHODS /////////////////////////////////
+    //*********************** */ METHODS */ **************************//
 
-    //////// COCKTAILS METHODS ////////////
+    //* COCKTAILS METHODS ////////////
 
     showCocktails(): void {
         this._view.showCocktails(this._cocktails);
@@ -56,6 +53,10 @@ export default class OwnCocktail {
         this.showCocktails();
     }
 
+    /**
+     * TODO Need idea for this newId think 
+     * @param id 
+     */
     async deleteCocktail(id: string) {
 
         let newId: string = '';
@@ -64,7 +65,7 @@ export default class OwnCocktail {
 
         await this._cocktailService.deleteCocktailApi(newId);
         this._cocktails = await this._cocktailService.getCocktailsApi();
-        this._view.showCocktails(this._cocktails);
+        this.showCocktails();
     }
 
     cocktailFromId(id: string) {
@@ -74,23 +75,30 @@ export default class OwnCocktail {
         return this._cocktails[cocktail];
     }
 
-    /////////// USER METHODS /////////////
+    //* USER METHODS /////////////
 
     addUser(user: User) {
         this._users.push(user);
     }
 
+    /**
+     * TODO Maybe give a object User for corroboration, less params
+     * @param name 
+     * @param pass 
+     * @returns 
+     */
+
     corroborateUser(name: string, pass: string) {
 
         let result: boolean = false;
-        for (let i = 0; i < this.users.length; i++) {
+        for (let i = 0; i < this._users.length; i++) {
 
-            let user = this.users[i];
+            let user = this._users[i];
             if (user.name == name)
                 if (user.pass == pass) {
                     result = true;
-                    this.actualUser = user;
-                    this.actualUser.state = UserState.LOG_IN;
+                    this._actualUser = user;
+                    this._actualUser.state = UserState.LOG_IN;
                 }
         }
         return result;
@@ -104,7 +112,11 @@ export default class OwnCocktail {
         this._view.showMessage(message);
     }
     /////////////////////////////// SPA ////////////////////////////////////
-
+    /**
+     * ! need refactor
+     * TODO: the fetch of the content must be in View class, that magic number routN will be changed with router file
+     * @param route 
+     */
     async loadContent(route: string) {
 
         let routeN: string = '';
@@ -117,11 +129,11 @@ export default class OwnCocktail {
 
             if (response.ok) {
                 let newContent: string = await response.text();
-                this._view.showContent(newContent);
+                this._view.showPage(newContent);
             }
         }
         catch (e) {
-
+            this.showMessage(`Error loadContent: ${e}`);
         }
     }
 
