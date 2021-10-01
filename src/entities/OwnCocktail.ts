@@ -28,6 +28,7 @@ export default class OwnCocktail {
     set cocktails(cocktails: Cocktail[]) {
         this._cocktails = cocktails;
     }
+
     get router() {
         return this._router;
     }
@@ -39,6 +40,7 @@ export default class OwnCocktail {
     get actualUser(): User {
         return this._actualUser;
     };
+
     set actualUser(user: User) {
         this._actualUser = user;
     }
@@ -120,10 +122,8 @@ export default class OwnCocktail {
      * !
      * @param route 
      */
-    async loadContent(route: string) {
-        const content: string = await this._view.fetchPage(route)
+    async loadContent(htmlPage : string) {
+        const content: string = await this._view.fetchPage(htmlPage)
         this._view.showPage(content);
     }
-
 }
-

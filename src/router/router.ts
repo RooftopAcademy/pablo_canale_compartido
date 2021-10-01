@@ -1,66 +1,82 @@
 import { addCocktail, registerUser, loginUser } from '../forms';
 import { bar } from "../index";
 
-export default class Router {
-
-    private routes = [
-        { id: '#/cocktails.html', route: '../../public/view/cocktails.html', idComponents: ['form-register', 'form-login', 'form-cocktails'] },
-        { id: '#/explenations.html', route: '../../public/view/explanations.html', idComponets: [''] }
-    ];
-
-    private listenerFunctions = [
-        { id: 'form-register', function: registerUser },
-        { id: 'form-login', function: loginUser },
-        { id: 'form-cocktails', function: addCocktail }
-    ]
-
-    //*************** METHODS ***************************/
-    private getFunction(id: string) {
-        let funct: any;
-        this.listenerFunctions.forEach(element => {
-            if (id === element.id)
-                funct = element.function;
-        });
-        return funct;
-    }
-
-    private getIdComponents(id: string) {
-        let idComponts: string[] = [];
-        this.routes.forEach(element => {
-            if ((id === element.id) && (element.idComponents != ['']))
-                idComponts = element.idComponents;
-        });
-        return idComponts;
-    }
-
-    private getRoute(id: string): string {
-        let route: string = '';
-        this.routes.forEach(element => {
-            if (id === element.id)
-                route = element.route;
-        });
-        return route;
-    }
-
-    private addListenterSubmit(idComponents: string[]) {
-        idComponents.forEach(id => {
-            let listenerFunction = this.getFunction(id)
-            document.getElementById(id).addEventListener('submit', listenerFunction)
-        });
-    }
-
-    /**
-     * ? Estan bien las funciones de arriba? 
-     * @param id 
-     */
-
-    loadPage(id: string) {
-        bar.loadContent(this.getRoute(id))
-        this.addListenterSubmit(this.getIdComponents(id))
-    }
+interface CustomEvents {
+    name : string 
+    callback : Function
 }
 
+interface RouteInterface {
+    id : string 
+    htmlPage : string 
+    listeners : CustomEvents[]
+}
 
+export default class Router {
+    private viewsDir = '../../public/view/'
+    private viewsExt = '.html'
 
+    public constructor(options = {
+        viewsDir : '',
+        viewsExt : ''
+    }) {
+        if (options.viewsDir) this.viewsDir = this.viewsDir
+        if (options.viewsExt) this.viewsDir = this.viewsExt
+    }
 
+    private routes : RouteInterface[] = [
+        { 
+            id: '#/cocktails.html', 
+            htmlPage: 'cocktails', 
+            listeners: [
+                {
+                    name : 'form-register',
+                    callback: registerUser
+                }, 
+                {
+                    name : 'form-login',
+                    callback: loginUser
+                }, 
+                {
+                    name : 'form-cocktails',
+                    callback: addCocktail
+                }
+            ] 
+        },
+        {
+            id: '#/explenations.html', 
+            htmlPage: 'explanations', 
+            listeners: []
+        }
+    ];
 
+    //*************** METHODS ***************************/
+    private getHTMLPage(route : RouteInterface): string | null {
+        let r = this.routes.find(r => route.id === r.id);
+
+        if (r) {
+            return this.viewsDir + r.htmlPage + this.viewsExt
+        }
+
+        return null
+    }
+
+    private addListenterSubmit(route : RouteInterface) {
+        route.listeners.forEach(listener => {
+            document
+                .getElementById(listener.name)
+                .addEventListener('submit', () => listener.callback)
+        });
+    }
+
+    findRoute(id : string) : RouteInterface {
+        return this.routes.find(route => route.id === id)
+    }
+
+    loadPage(id: string) {
+        let route = this.findRoute(id)
+
+        bar.loadContent(this.getHTMLPage(route))
+        this.addListenterSubmit(route)
+    }
+}

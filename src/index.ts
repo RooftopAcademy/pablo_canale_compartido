@@ -1,13 +1,10 @@
-
-
-
 import OwnCocktail from './entities/OwnCocktail';
 import router from './router/router';
 import { UserState } from './enum/EnumUserState';
 
-
-//My bar object//
-
+/**
+ * This is the application instance
+ */
 export const bar = new OwnCocktail();
 
 window.addEventListener('hashchange', () => {
