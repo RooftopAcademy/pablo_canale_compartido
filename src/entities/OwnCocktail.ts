@@ -4,7 +4,7 @@ import { UserState } from '../enum/EnumUserState';
 import View from './View';
 import { StatusCodes } from '../enum/EnumStatusCodes';
 import CocktailService from './CocktailService';
-
+import Router from '../router/router';
 
 export default class OwnCocktail {
 
@@ -13,19 +13,23 @@ export default class OwnCocktail {
     private _actualUser: User;
     private _cocktails: Cocktail[];
     private _cocktailService: CocktailService;
+    private _router: Router;
 
     constructor() {
         this._users = [];
         this._view = new View;
         this._actualUser = new User;
-        this._cocktails = [];
         this._cocktailService = new CocktailService;
-
+        this._cocktails = []
+        this._router = new Router;
     }
 
     //* GETTERS AND SETTERS ////////////////////////////
     set cocktails(cocktails: Cocktail[]) {
-        this.cocktails = cocktails;
+        this._cocktails = cocktails;
+    }
+    get router() {
+        return this._router;
     }
 
     get cocktails() {
@@ -113,28 +117,12 @@ export default class OwnCocktail {
     }
     /////////////////////////////// SPA ////////////////////////////////////
     /**
-     * ! need refactor
-     * TODO: the fetch of the content must be in View class, that magic number routN will be changed with router file
+     * !
      * @param route 
      */
     async loadContent(route: string) {
-
-        let routeN: string = '';
-
-        for (let i = 2; i < route.length; i++) // le saco el "#/.... esto esta bien? Mejor forma de hacer esto?"
-            routeN += route[i];
-
-        try {
-            let response = await fetch(`./views/${routeN}.html`);
-
-            if (response.ok) {
-                let newContent: string = await response.text();
-                this._view.showPage(newContent);
-            }
-        }
-        catch (e) {
-            this.showMessage(`Error loadContent: ${e}`);
-        }
+        const content: string = await this._view.fetchPage(route)
+        this._view.showPage(content);
     }
 
 }
