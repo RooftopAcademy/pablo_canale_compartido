@@ -35,15 +35,19 @@
   .card:hover .card-container {
     transform: rotateY(180deg);
   }
+  .title{ display: block; 
+    font-size: 2em; 
+    font-weight: bold; }
   
-  .card-front h1{      
+  .card-front .title{      
     text-decoration:#606060 underline;
-    margin-bottom: 5px;      
+    margin-bottom: 5px;  
+      
   }
   .card-front p{  
     padding-top: 10px;      
   }
-  .card-back h1{
+  .card-back .title{
     padding-top: 10px;     
   }
   

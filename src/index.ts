@@ -1,9 +1,9 @@
 
 
 
-import OwnCocktail from './OwnCocktailClass';
+import OwnCocktail from './entities/OwnCocktail';
 import router from './router/index.router';
-import { UserState } from './EnumUserState';
+import { UserState } from './enum/EnumUserState';
 
 
 //My bar object//
@@ -11,7 +11,8 @@ import { UserState } from './EnumUserState';
 export const bar = new OwnCocktail();
 
 window.addEventListener('hashchange', () => {
-    router(window.location.hash)});
+    router(window.location.hash)
+});
 
 
 /****************************** DOM ***************************************/
@@ -19,24 +20,24 @@ document.getElementsByClassName('arrow-down')[0].addEventListener('click', toggl
 
 document.getElementsByClassName('arrow-up')[0].addEventListener('click', toggleMenu);
 
-function toggleMenu() : void{    
+function toggleMenu(): void {
     document.getElementById('ul-btns')?.classList.toggle("show");
-}    
+}
 
 
 
-document.getElementById('btn-favorites')?.addEventListener('click', function(){    
-    
-    if(bar.actualUser.state == UserState.LOG_IN){
+document.getElementById('btn-favorites')?.addEventListener('click', function () {
+
+    if (bar.actualUser.state == UserState.LOG_IN) {
         bar.filterFavorites();
         document.getElementById('btn-all')?.classList.toggle('hidden-container');
         document.getElementById('btn-favorites')?.classList.toggle('hidden-container');
     }
-    else      
-        bar.showMessage(`You Should Be Login For Favorite Option`); 
+    else
+        bar.showMessage(`You Should Be Login For Favorite Option`);
 })
- 
-document.getElementById('btn-all')?.addEventListener('click', function(){
+
+document.getElementById('btn-all')?.addEventListener('click', function () {
     bar.showCocktails();
     document.getElementById('btn-all')?.classList.toggle('hidden-container');
     document.getElementById('btn-favorites')?.classList.toggle('hidden-container');
