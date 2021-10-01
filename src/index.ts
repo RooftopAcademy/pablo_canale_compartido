@@ -2,7 +2,7 @@
 
 
 import OwnCocktail from './entities/OwnCocktail';
-import router from './router/index.router';
+import router from './router/router';
 import { UserState } from './enum/EnumUserState';
 
 
@@ -11,7 +11,7 @@ import { UserState } from './enum/EnumUserState';
 export const bar = new OwnCocktail();
 
 window.addEventListener('hashchange', () => {
-    router(window.location.hash)
+    bar.router.loadPage(window.location.hash)
 });
 
 
