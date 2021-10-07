@@ -13,7 +13,7 @@ interface RouteInterface {
 }
 
 export default class Router {
-    private viewsDir = '../../public/view/'
+    private viewsDir = '../../views/'
     private viewsExt = '.html'
 
     public constructor(options = {
@@ -26,7 +26,7 @@ export default class Router {
 
     private routes : RouteInterface[] = [
         { 
-            id: '#/cocktails.html', 
+            id: '#/cocktails', 
             htmlPage: 'cocktails', 
             listeners: [
                 {
@@ -44,7 +44,7 @@ export default class Router {
             ] 
         },
         {
-            id: '#/explenations.html', 
+            id: '#/explanations', 
             htmlPage: 'explanations', 
             listeners: []
         }
@@ -53,7 +53,7 @@ export default class Router {
     //*************** METHODS ***************************/
     private getHTMLPage(route : RouteInterface): string | null {
         let r = this.routes.find(r => route.id === r.id);
-
+        
         if (r) {
             return this.viewsDir + r.htmlPage + this.viewsExt
         }
@@ -61,11 +61,11 @@ export default class Router {
         return null
     }
 
-    private addListenterSubmit(route : RouteInterface) {
-        route.listeners.forEach(listener => {
+    private addListenterSubmit(route : RouteInterface) {        
+        route.listeners.forEach(listener => {           
             document
                 .getElementById(listener.name)
-                .addEventListener('submit', () => listener.callback)
+                .addEventListener('submit', (e: Event)=>{listener.callback(e)})
         });
     }
 
@@ -73,10 +73,10 @@ export default class Router {
         return this.routes.find(route => route.id === id)
     }
 
-    loadPage(id: string) {
+    async loadPage(id: string) {
         let route = this.findRoute(id)
-
-        bar.loadContent(this.getHTMLPage(route))
+        await bar.loadContent(this.getHTMLPage(route))        
         this.addListenterSubmit(route)
+        
     }
 }
