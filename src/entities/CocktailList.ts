@@ -1,68 +1,67 @@
 import Cocktail from '../interfaces/CocktailInterface';
+import Ordenable from '../interfaces/OrdenableInterface';
+import Sort from '../interfaces/SortInterface';
 
-class Node<Cocktail> {
-    public next: Node<Cocktail> | null = null;
-    public prev: Node<Cocktail> | null = null;
-    constructor(public data: Cocktail) {}
-  }
+export default class CocktailList implements Ordenable {
+
+    private cocktails: Cocktail[] = [
+        { name: 'caipi', ingredients: ['ing1', 'ing2', 'ing3'], image: '', id: '5', amountOfIngredients: 1 },
+        { name: 'negroni', ingredients: ['ing1', 'ing2', 'ing3'], image: '', id: '1', amountOfIngredients: 2 },
+        { name: 'negroni', ingredients: ['ing1', 'ing2', 'ing3'], image: '', id: '3', amountOfIngredients: 3 },
+        { name: 'campari', ingredients: ['ing1', 'ing2', 'ing3'], image: '', id: '8', amountOfIngredients: 2 },
+        { name: 'caipi', ingredients: ['ing1', 'ing2', 'ing3'], image: '', id: '2', amountOfIngredients: 2 },
+        { name: 'negroni', ingredients: ['ing1', 'ing2', 'ing3'], image: '', id: '7', amountOfIngredients: 2 },
+        { name: 'caipi', ingredients: ['ing1', 'ing2', 'ing3'], image: '', id: '6', amountOfIngredients: 3 },
+        { name: 'caipi', ingredients: ['ing1', 'ing2', 'ing3'], image: '', id: '4', amountOfIngredients: 1 }
+    ];
+    private result: Cocktail[];
+
+    sort: Sort;
+    cache: Map<Sort, any[]>;
 
 
-interface ListInterface<Cocktail> {
-    insertBegin(data: Cocktail): Node<Cocktail>;
-    insertEnd(data: Cocktail): Node<Cocktail>;
-    deleteNode(node: Node<Cocktail>): void;
-    traverse(): Cocktail[];
-    size(): number;
-    search(comparator: (data: Cocktail) => boolean): Node<Cocktail> | null;
-  }
+    setSorting(obj: Sort) {
+        this.result = [...this.cocktails]
+        this.sort = obj
+
+        //if (this.cache.has(obj)) return        
+        const objKeys = Object.keys(obj) as Array<keyof Cocktail>;
+        let temp = objKeys.map(key => this.sortByKey(key));
+
+        console.log(temp);
+        // complete here...
+    }
+
+    sortBy(a: Cocktail, b: Cocktail, key: keyof Cocktail) {
+        if (a[key] > b[key]) return 1
+        if (a[key] < b[key]) return -1
+        return 0;
+    }
 
 
-class CocktailList implements ListInterface<Cocktail>{
-    private head: Node <Cocktail> | null = null;
+    sortByKey(key: keyof Cocktail): Cocktail[] {
+        return [...this.result]
+            .sort((a: Cocktail, b: Cocktail) => this.sortBy(a, b, key))
+    }
 
-    insertBegin(data: Cocktail): Node<Cocktail> {
-        const node = new Node(data);
+    getItems() {
+        return this.cache.get(this.sort)
+    }
 
-        if (!this.head) {
-            this.head = node;
-        } 
-        else {
-            this.head.prev = node;
-            node.next = this.head;
-            this.head = node;
-        }
-        return node;
+    insert(cocktail: Cocktail): Cocktail {
+        this.cocktails.push(cocktail);
+        return cocktail;
     };
-    
-    public insertAtEnd(data: Cocktail): Node<Cocktail> {
-        const node = new Node(data);
-        if (!this.head) {
-          this.head = node;
-        } else {
-          const getLast = (node: Node<Cocktail>): Node<Cocktail> => {
-            return node.next ? getLast(node.next) : node;
-          };
-    
-          const lastNode = getLast(this.head);
-          node.prev = lastNode;
-          lastNode.next = node;
-        }
-        return node;
-      }
-    deleteNode(node: Node<Cocktail>): void {
-        throw new Error('Method not implemented.');
+
+
+
+    delete(id: number): void {
+
     }
-    traverse(): Cocktail[] {
-        throw new Error('Method not implemented.');
-    }
-    size(): number {
-        throw new Error('Method not implemented.');
-    }
-    search(comparator: (data: Cocktail) => boolean): Node<Cocktail> {
-        throw new Error('Method not implemented.');
-    }
-    private list : Node<Cocktail>[] = []
 
 
 
 }
+
+
+
