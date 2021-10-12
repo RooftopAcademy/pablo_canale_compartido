@@ -11,12 +11,14 @@ export function addCocktail(event: Event): void {
     let ingredientsArray: string[] = ingredients.split(",");
     let imageUrl: string = (<HTMLInputElement>document.getElementById('image')).value;
     let id: string = (bar.cocktails.length + 1).toString();
+    let ingredientsSize: number = ingredientsArray.length;
 
     let cocktail: Cocktail = {
         name: name,
         ingredients: ingredientsArray,
         image: imageUrl,
-        id: id
+        id: id,
+        amountOfIngredients: ingredientsSize
     };
 
     bar.addCocktail(cocktail);
