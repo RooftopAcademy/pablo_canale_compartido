@@ -1,4 +1,4 @@
-import { bar } from "../index";
+import { app } from "../index";
 import Cocktail from "../interfaces/CocktailInterface";
 
 export default class CocktailService {
@@ -18,7 +18,7 @@ export default class CocktailService {
             });
         }
         catch (e) {
-            bar.showMessage(`Error postCocktail: ${e}`);
+            app.showMessage(`Error postCocktail: ${e}`);
         }
     }
 
@@ -33,7 +33,7 @@ export default class CocktailService {
                 cocktails = await res.json();
         }
         catch (e) {
-            bar.showMessage(`Error getCocktails: ${e}`);
+            app.showMessage(`Error getCocktails: ${e}`);
         }
         return cocktails;
     }
@@ -45,7 +45,7 @@ export default class CocktailService {
             });
         }
         catch (e) {
-            bar.showMessage(`Error deleteCocktail: ${e}`);;
+            app.showMessage(`Error deleteCocktail: ${e}`);;
         }
     }
 }

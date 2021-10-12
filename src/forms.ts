@@ -1,5 +1,5 @@
 import Cocktail from "./interfaces/CocktailInterface";
-import { bar } from "./index";
+import { app } from "./index";
 import User from "./entities/User";
 
 
@@ -10,7 +10,7 @@ export function addCocktail(event: Event): void {
     let ingredients: string = (<HTMLInputElement>document.getElementById('ingredients')).value;
     let ingredientsArray: string[] = ingredients.split(",");
     let imageUrl: string = (<HTMLInputElement>document.getElementById('image')).value;
-    let id: string = (bar.cocktails.length + 1).toString();
+    let id: string = (app.cocktails.length + 1).toString();
     let ingredientsSize: number = ingredientsArray.length;
 
     let cocktail: Cocktail = {
@@ -21,7 +21,7 @@ export function addCocktail(event: Event): void {
         amountOfIngredients: ingredientsSize
     };
 
-    bar.addCocktail(cocktail);
+    app.addCocktail(cocktail);
 }
 
 export function registerUser(event: Event): void {
@@ -37,8 +37,8 @@ export function registerUser(event: Event): void {
         user.pass = pass;
         user.email = email;
 
-        bar.addUser(user);
-        bar.showMessage('You Are Now  Registered')
+        app.addUser(user);
+        app.showMessage('You Are Now  Registered')
 
         document.getElementById('form-register')?.classList.toggle('hidden-container');
         document.getElementById('form-login')?.classList.toggle('hidden-container');
@@ -54,7 +54,7 @@ export function loginUser(event: Event): void {
     let name: string = (<HTMLInputElement>document.getElementById('username')).value;
     let pass: string = (<HTMLInputElement>document.getElementById('pass')).value;
 
-    if (bar.corroborateUser(name, pass)) {
+    if (app.corroborateUser(name, pass)) {
         document.getElementById('form-cocktails')?.classList.toggle('hidden-container');
         document.getElementById('form-login')?.classList.toggle('hidden-container');
     }

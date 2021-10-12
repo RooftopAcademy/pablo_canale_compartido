@@ -1,15 +1,23 @@
-import OwnCocktail from './entities/OwnCocktail';
-import router from './router/router';
+import App from './entities/App';
 import { UserState } from './enum/EnumUserState';
-
+import CocktailList from './entities/CocktailList';
+import Sort from './interfaces/SortInterface';
 /**
  * This is the application instance
  */
-export const bar = new OwnCocktail();
+export const app = new App();
 
 window.addEventListener('hashchange', () => {
-    bar.router.loadPage(window.location.hash)
+    app.router.loadPage(window.location.hash)
 });
+
+let list = new CocktailList();
+let sort: Sort = {
+    name: 1,
+    id: 1,
+}
+
+list.setSorting(sort);
 
 
 /****************************** DOM ***************************************/
@@ -25,17 +33,17 @@ function toggleMenu(): void {
 
 document.getElementById('btn-favorites')?.addEventListener('click', function () {
 
-    if (bar.actualUser.state == UserState.LOG_IN) {
-        bar.filterFavorites();
+    if (app.actualUser.state == UserState.LOG_IN) {
+        app.filterFavorites();
         document.getElementById('btn-all')?.classList.toggle('hidden-container');
         document.getElementById('btn-favorites')?.classList.toggle('hidden-container');
     }
     else
-        bar.showMessage(`You Should Be Login For Favorite Option`);
+        app.showMessage(`You Should Be Login For Favorite Option`);
 })
 
 document.getElementById('btn-all')?.addEventListener('click', function () {
-    bar.showCocktails();
+    app.showCocktails();
     document.getElementById('btn-all')?.classList.toggle('hidden-container');
     document.getElementById('btn-favorites')?.classList.toggle('hidden-container');
 });
@@ -51,17 +59,17 @@ document.getElementById('btn-all')?.addEventListener('click', function () {
 // https://images.cocktailflow.com/v1/cocktail/w_300,h_540/cocktail_caipirinha-1.png  caipi
 
 /* let pinaColada = new Cocktail('Pina Colada', ['White Run', 'Coconut Milk', 'Pineaple Juice', 'Crushed Ice'], 'https://images.cocktailflow.com/v1/cocktail/w_300,h_540/cocktail_pina_colada-1.png');
-bar.addCocktail(pinaColada);
+app.addCocktail(pinaColada);
 let daikiri = new Cocktail('Daikiri', ['White Run', 'Sugar Syrup', 'Lime Juice', 'Ice Cubes'], 'https://images.cocktailflow.com/v1/cocktail/w_300,h_540/cocktail_daiquiri-1.png');
-bar.addCocktail(daikiri);
+app.addCocktail(daikiri);
 */
 /*let ginTonic = new Cocktail('Gin Tonic', ['Gin', 'Lime', 'Tonic', 'Ice Cubes'], 'https://images.cocktailflow.com/v1/cocktail/w_300,h_540/cocktail_gin_tonic-1.png');
-bar.addCocktail(ginTonic);
+app.addCocktail(ginTonic);
 
 let tropStraw = new Cocktail('Trop Strawberry', ['Strawberry', 'Sugar', 'Pineaple', 'Yogurt', 'Milk', 'Ice'], 'https://images.cocktailflow.com/v1/cocktail/w_300,h_540/cocktail_tropical_strawberry-1.png');
-bar.addCocktail(tropStraw);
+app.addCocktail(tropStraw);
 
 let caipi = new Cocktail('Caipirinha', ['Cachaca', 'Sugar', 'Lime Wedges', 'Crushed Ice'], 'https://images.cocktailflow.com/v1/cocktail/w_300,h_540/cocktail_caipirinha-1.png');
-bar.addCocktail(caipi);
+app.addCocktail(caipi);
 */
 

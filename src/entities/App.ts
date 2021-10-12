@@ -6,7 +6,7 @@ import { StatusCodes } from '../enum/EnumStatusCodes';
 import CocktailService from './CocktailService';
 import Router from '../router/router';
 
-export default class OwnCocktail {
+export default class App {
 
     private _users: User[];
     private _view: View;
@@ -59,7 +59,8 @@ export default class OwnCocktail {
         this.showCocktails();
     }
 
-    /**
+    /** 
+     * 
      * TODO Need idea for this newId think 
      * @param id 
      */
@@ -122,7 +123,7 @@ export default class OwnCocktail {
      * !
      * @param route 
      */
-    async loadContent(htmlPage : string) {
+    async loadContent(htmlPage: string) {
         const content: string = await this._view.fetchPage(htmlPage)
         this._view.showPage(content);
     }
