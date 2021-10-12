@@ -1,10 +1,9 @@
 import Sort from "./SortInterface";
 
-export default interface Ordenable{
-    sort : Sort;
-    cache : Map<Sort, any[]>; 
+export default interface Ordenable {
+    sort: Sort;
+    cache: Map<Sort, any[]>;
 
     setSorting(obj: Sort): void;
-    sortByKey(key : string): any[];
-    
+    sortByKeys(objKeys: Array<keyof any>, key: keyof any, index: number): any[];
 }
