@@ -26,22 +26,24 @@ export default class CocktailList implements Ordenable {
 
         //if (this.cache.has(obj)) return        
         const objKeys = Object.keys(obj) as Array<keyof Cocktail>;
-        let temp = objKeys.map(key => this.sortByKey(key));
 
+        let temp = this.sortByKeys(objKeys);
         console.log(temp);
-        // complete here...
+
     }
 
-    sortBy(a: Cocktail, b: Cocktail, key: keyof Cocktail) {
-        if (a[key] > b[key]) return 1
-        if (a[key] < b[key]) return -1
-        return 0;
+    sortBy(a: Cocktail, b: Cocktail, objKeys: Array<keyof Cocktail>, index: number): number {
+        console.log(objKeys[index])
+        if (a[objKeys[index]] > b[objKeys[index]]) return 1;
+        if (a[objKeys[index]] < b[objKeys[index]]) return -1;
+        if (!objKeys[index]) return 0;
+        return this.sortBy(a, b, objKeys, ++index);
     }
 
 
-    sortByKey(key: keyof Cocktail): Cocktail[] {
+    sortByKeys(objKeys: Array<keyof Cocktail>): Cocktail[] {
         return [...this.result]
-            .sort((a: Cocktail, b: Cocktail) => this.sortBy(a, b, key))
+            .sort((a: Cocktail, b: Cocktail) => this.sortBy(a, b, objKeys, 0));
     }
 
     getItems() {
