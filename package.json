@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "description": "I am making a web for Rooftop Academy Bootcamp",
   "scripts": {
-    "start": "webpack-dev-server --mode development",
+    "start": "nodemon server.js",
+    "dev": "webpack-dev-server --mode development",
     "build": "webpack",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -18,6 +19,7 @@
   },
   "homepage": "https://github.com/RooftopAcademy/pablo_canale_compartido#readme",
   "devDependencies": {
+    "nodemon": "^2.0.13",
     "ts-loader": "^9.2.6",
     "typescript": "^4.4.3",
     "webpack": "^5.56.1",
