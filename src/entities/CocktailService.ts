@@ -3,7 +3,7 @@ import Cocktail from "../interfaces/CocktailInterface";
 
 export default class CocktailService {
 
-    private readonly _urlApi: string = 'https://6148b332035b3600175b9fd8.mockapi.io/Bar/1/';
+    private readonly _urlApi: string = 'http://localhost:3002/api/cocktails';
 
     get urlApi() {
         return this._urlApi;
@@ -11,7 +11,7 @@ export default class CocktailService {
 
     async postCocktailApi(cocktail: Cocktail) {
         try {
-            let res: Response = await fetch(`${this._urlApi}Cocktail`, {
+            let res: Response = await fetch(`${this._urlApi}/${cocktail.id}`, {
                 "method": "POST",
                 "headers": { "Content-type": "application/json" },
                 "body": JSON.stringify(cocktail)
@@ -27,7 +27,7 @@ export default class CocktailService {
         let cocktails: Cocktail[] = [];
 
         try {
-            let res: Response = await fetch(`${this._urlApi}Cocktail`);
+            let res: Response = await fetch(`${this._urlApi}`);
 
             if (res.ok)
                 cocktails = await res.json();
@@ -40,7 +40,7 @@ export default class CocktailService {
 
     async deleteCocktailApi(id: string) {
         try {
-            let res = await fetch(`${this._urlApi}Cocktail/${id}`, {
+            let res = await fetch(`${this._urlApi}/${id}`, {
                 "method": "DELETE"
             });
         }
