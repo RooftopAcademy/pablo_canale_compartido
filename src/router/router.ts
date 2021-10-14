@@ -1,5 +1,5 @@
 import { addCocktail, registerUser, loginUser } from '../forms';
-import { bar } from "../index";
+import { app } from "../index";
 
 interface CustomEvents {
     name : string 
@@ -75,7 +75,7 @@ export default class Router {
 
     async loadPage(id: string) {
         let route = this.findRoute(id)
-        await bar.loadContent(this.getHTMLPage(route))        
+        await app.loadContent(this.getHTMLPage(route))        
         this.addListenterSubmit(route)
         
     }
