@@ -1,19 +1,23 @@
 const { response } = require("express");
 const express = require("express");
-
+const dotenv = require('dotenv')
 const appServer = express();
 
+dotenv.config()
+
 appServer.use(express.json())
+appServer.use(express.urlencoded())
 
 let cocktails = [
-    { name: 'caipi', ingredients: ['ing1', 'ing2', 'ing3'], image: '', id: '5', amountOfIngredients: 1 },
-    { name: 'negroni', ingredients: ['ing1', 'ing2', 'ing3'], image: '', id: '1', amountOfIngredients: 2 },
-    { name: 'negroni', ingredients: ['ing1', 'ing2', 'ing3'], image: '', id: '3', amountOfIngredients: 3 },
-    { name: 'campari', ingredients: ['ing1', 'ing2', 'ing3'], image: '', id: '8', amountOfIngredients: 2 },
-    { name: 'caipi', ingredients: ['ing1', 'ing2', 'ing3'], image: '', id: '2', amountOfIngredients: 2 },
-    { name: 'negroni', ingredients: ['ing1', 'ing2', 'ing3'], image: '', id: '7', amountOfIngredients: 2 },
-    { name: 'caipi', ingredients: ['ing1', 'ing2', 'ing3'], image: '', id: '6', amountOfIngredients: 3 },
-    { name: 'caipi', ingredients: ['ing1', 'ing2', 'ing3'], image: '', id: '4', amountOfIngredients: 1 }
+    { name: 'caipi', ingredients: ['ing1', 'ing2', 'ing3'], image: 'https://images.cocktailflow.com/v1/cocktail/w_300,h_540/cocktail_caipiroshka-1.png', id: '100', amountOfIngredients: 1 },
+    { name: 'negroni', ingredients: ['ing1', 'ing2', 'ing3'], image: 'https://images.cocktailflow.com/v1/cocktail/w_300,h_540/cocktail_negroni-1.png', id: '101', amountOfIngredients: 2 },
+    { name: 'negroni', ingredients: ['ing1', 'ing2', 'ing3'], image: 'https://images.cocktailflow.com/v1/cocktail/w_300,h_540/cocktail_negroni-1.png', id: '102', amountOfIngredients: 3 },
+    { name: 'aperol', ingredients: ['ing1', 'ing2', 'ing3'], image: 'https://images.cocktailflow.com/v1/cocktail/w_300,h_540/cocktail_aperol_spritz-1.png', id: '1003', amountOfIngredients: 2 },
+    { name: 'caipi', ingredients: ['ing1', 'ing2', 'ing3'], image: 'https://images.cocktailflow.com/v1/cocktail/w_300,h_540/cocktail_caipiroshka-1.png', id: '104', amountOfIngredients: 2 },
+    { name: 'negroni', ingredients: ['ing1', 'ing2', 'ing3'], image: 'https://images.cocktailflow.com/v1/cocktail/w_300,h_540/cocktail_negroni-1.png', id: '105', amountOfIngredients: 2 },
+    { name: 'caipi', ingredients: ['ing1', 'ing2', 'ing3'], image: 'https://images.cocktailflow.com/v1/cocktail/w_300,h_540/cocktail_caipiroshka-1.png', id: '106', amountOfIngredients: 3 },
+    { name: 'caipi', ingredients: ['ing1', 'ing2', 'ing3'], image: 'https://images.cocktailflow.com/v1/cocktail/w_300,h_540/cocktail_caipiroshka-1.png', id: '104', amountOfIngredients: 1 }
+
 ]
 
 let users = [
@@ -29,13 +33,13 @@ appServer.get("/", (req, res) => {
 
 appServer.use(express.static(__dirname + "/public"));
 
-const PORT = 3002;
+const PORT = process.env.PORT;
 
-appServer.listen(3002, () => { console.log(`Server Runing on port ${PORT}`) });
+appServer.listen(PORT, () => { console.log(`Server Runing on port ${PORT}`) });
 
+appServer.locals.baseUrl = process.env.HOST +
 
-
-appServer.get('/api/cocktails', (req, res) => { res.json(cocktails) });
+    appServer.get('/api/cocktails', (req, res) => { res.json(cocktails) });
 
 appServer.get('/api/cocktails/:id', (req, res) => {
     const id = Number(req.params.id);
@@ -49,14 +53,17 @@ appServer.get('/api/cocktails/:id', (req, res) => {
     }
 });
 
-appServer.post('/api/cocktails', (req, res) => {
+appServer.post('/api/cocktails/', (req, res) => {
     const cocktail = req.body;
-    if (!cocktail || !cocktail.content) {
+    console.log(cocktail)
+    if (!cocktail) {
         return res.status(400).json({
-            error: 'vocktail.content is missing'
+            error: 'some error. Salud!'
         })
 
     }
+    cocktails.push(cocktail);
+
     res.json(cocktail)
 })
 
@@ -64,11 +71,22 @@ appServer.delete('/api/cocktails/:id', (req, res) => {
     const id = Number(req.params.id)
     cocktails = cocktails.filter(cocktail => cocktail.id != id);
     res.status(204).end()
+    console.log(cocktails)
 });
 
 
+appServer.post('/api/users/', (req, res) => {
+    const user = req.body;
+    if (!user) {
+        return res.status(400).json({
+            error: 'vocktail.content is missing'
+        })
 
-appServer.get('/api/users', (req, res) => { res.json(users) });
+    }
+    cocktails.push(user);
+
+    res.json(user)
+})
 
 appServer.get('/api/users/:id', (req, res) => {
     const id = Number(req.params.id);
