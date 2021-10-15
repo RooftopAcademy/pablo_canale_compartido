@@ -2,5 +2,9 @@ POST http://localhost:3002/api/cocktails/
 Content-Type: application/json
 
 {
-    "content": "Esto es una cocktail nuevo"
+  "name": "asdf",
+  "ingredients": "[ 'ron', 'coca', 'lime' ]",
+  "image": "https://images.cocktailflow.com/v1/cocktail/w_300,h_540/cocktail_gin_tonic-1.png",
+  "id": "9",
+  "amountOfIngredients": 3
 }
