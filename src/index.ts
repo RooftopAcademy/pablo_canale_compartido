@@ -11,15 +11,6 @@ window.addEventListener('hashchange', () => {
     app.router.loadPage(window.location.hash)
 });
 
-let list = new CocktailList();
-let sort: Sort = {
-    name: 1,
-    id: 1,
-}
-
-list.setSorting(sort);
-
-
 /****************************** DOM ***************************************/
 document.getElementsByClassName('arrow-down')[0].addEventListener('click', toggleMenu);
 
