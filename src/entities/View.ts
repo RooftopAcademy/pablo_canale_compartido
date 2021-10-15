@@ -68,9 +68,13 @@ export default class View {
         cardContainer.innerHTML = '';
         cocktails.forEach(cocktail => {
             cardContainer.innerHTML += this.createCocktail(cocktail);
-            document.getElementById(cocktail.id).addEventListener('click', addFavorite)
-            document.getElementById(`-${cocktail.id}`).addEventListener('click', deleteCard)
         });
+
+        for (let index = 0; index < cocktails.length; index++) {
+            document.getElementsByClassName('star')[index].addEventListener('click', addFavorite)
+            document.getElementsByClassName('trashcan')[index].addEventListener('click', deleteCard)
+        }
+
     }
 
     showMessage(message: string) {
