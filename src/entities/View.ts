@@ -1,7 +1,7 @@
 import Cocktail from '../interfaces/CocktailInterface';
-import { addCocktail, registerUser, loginUser } from '../forms';
-import { addFavorite, deleteCard } from '../cards';
-
+import { addCocktail, registerUser, loginUser } from '../listener/forms';
+import { addFavorite, deleteCard } from '../listener/cards';
+import { app } from '..';
 
 
 
@@ -26,6 +26,7 @@ export default class View {
         nodeMain.innerHTML = '';
         node.innerHTML = content;
         nodeMain.append(node);
+        document.getElementById('sort-btn')?.addEventListener('click', () => { app.sortList() })
         document.getElementById('btn-goLogin')?.addEventListener('click', () => {
             document.getElementById('form-register')?.classList.toggle('hidden-container');
             document.getElementById('form-login')?.classList.toggle('hidden-container');
@@ -58,6 +59,7 @@ export default class View {
                         </div>
                     </div>
                 </div>`;
+
     }
 
     showCocktails(cocktails: Cocktail[]) {
@@ -66,8 +68,8 @@ export default class View {
         cardContainer.innerHTML = '';
         cocktails.forEach(cocktail => {
             cardContainer.innerHTML += this.createCocktail(cocktail);
-            console.log(document.getElementById(cocktail.id))
             document.getElementById(cocktail.id).addEventListener('click', addFavorite)
+            document.getElementById(`-${cocktail.id}`).addEventListener('click', deleteCard)
         });
     }
 
