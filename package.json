@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "I am making a web for Rooftop Academy Bootcamp",
   "scripts": {
+    "watch": "webpack --watch",
     "start": "nodemon server.js",
     "dev": "webpack-dev-server --mode development",
     "build": "webpack",
@@ -25,5 +26,8 @@
     "webpack": "^5.56.1",
     "webpack-cli": "^4.8.0",
     "webpack-dev-server": "^4.2.1"
+  },
+  "dependencies": {
+    "dotenv": "^10.0.0"
   }
 }
