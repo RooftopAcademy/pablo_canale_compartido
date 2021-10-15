@@ -5,13 +5,15 @@ import View from './View';
 import { StatusCodes } from '../enum/EnumStatusCodes';
 import CocktailService from './CocktailService';
 import Router from '../router/router';
+import CocktailList from './CocktailList';
+import Sort from '../interfaces/SortInterface';
 
 export default class App {
 
     private _users: User[];
     private _view: View;
     private _actualUser: User;
-    private _cocktails: Cocktail[];
+    private _cocktailList: CocktailList;
     private _cocktailService: CocktailService;
     private _router: Router;
 
@@ -20,21 +22,23 @@ export default class App {
         this._view = new View;
         this._actualUser = new User;
         this._cocktailService = new CocktailService;
-        this._cocktails = []
         this._router = new Router;
+        this._cocktailList = new CocktailList;
+
+        (
+            async () => {
+                const cocktails = await this._cocktailService.getCocktailsApi()
+                this._cocktailList.setCocktails(cocktails)
+            }
+        )();
     }
 
-    //* GETTERS AND SETTERS ////////////////////////////
-    set cocktails(cocktails: Cocktail[]) {
-        this._cocktails = cocktails;
-    }
+
+
+    //* GETTERS AND SETTERS ////////////////////////////    
 
     get router() {
         return this._router;
-    }
-
-    get cocktails() {
-        return this._cocktails;
     }
 
     get actualUser(): User {
@@ -49,13 +53,28 @@ export default class App {
 
     //* COCKTAILS METHODS ////////////
 
+    sortList() {
+        // Este sort es para testing
+        let sort: Sort = {
+            name: 1,
+            id: 1,
+        }
+        this._view.showCocktails(this._cocktailList.getSort(sort))
+    }
+
+    cocktailsLenght() {
+        return this._cocktailList.size()
+    }
+
     showCocktails(): void {
-        this._view.showCocktails(this._cocktails);
+        this._view.showCocktails(this._cocktailList.getCocktails());
     }
 
     async addCocktail(cocktail: Cocktail) {
         await this._cocktailService.postCocktailApi(cocktail);
-        this._cocktails = await this._cocktailService.getCocktailsApi();
+        const cocktails = await this._cocktailService.getCocktailsApi();
+        this._cocktailList.setCocktails(cocktails)
+        console.log(this._cocktailList.getCocktails())
         this.showCocktails();
     }
 
@@ -71,15 +90,16 @@ export default class App {
             newId += id[i];
 
         await this._cocktailService.deleteCocktailApi(newId);
-        this._cocktails = await this._cocktailService.getCocktailsApi();
+        const cocktails = await this._cocktailService.getCocktailsApi();
+        this._cocktailList.setCocktails(cocktails)
         this.showCocktails();
     }
 
     cocktailFromId(id: string) {
         let cocktail = 0;
-        while (this._cocktails[cocktail].id != id)
+        while (this._cocktailList.getCocktails()[cocktail].id != id)
             cocktail++;
-        return this._cocktails[cocktail];
+        return this._cocktailList.getCocktails()[cocktail];
     }
 
     //* USER METHODS /////////////
