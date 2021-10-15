@@ -4,36 +4,48 @@ import Sort from '../interfaces/SortInterface';
 
 export default class CocktailList implements Ordenable {
 
-    private cocktails: Cocktail[] = [
-        { name: 'caipi', ingredients: ['ing1', 'ing2', 'ing3'], image: '', id: '5', amountOfIngredients: 1 },
-        { name: 'negroni', ingredients: ['ing1', 'ing2', 'ing3'], image: '', id: '1', amountOfIngredients: 2 },
-        { name: 'negroni', ingredients: ['ing1', 'ing2', 'ing3'], image: '', id: '3', amountOfIngredients: 3 },
-        { name: 'campari', ingredients: ['ing1', 'ing2', 'ing3'], image: '', id: '8', amountOfIngredients: 2 },
-        { name: 'caipi', ingredients: ['ing1', 'ing2', 'ing3'], image: '', id: '2', amountOfIngredients: 2 },
-        { name: 'negroni', ingredients: ['ing1', 'ing2', 'ing3'], image: '', id: '7', amountOfIngredients: 2 },
-        { name: 'caipi', ingredients: ['ing1', 'ing2', 'ing3'], image: '', id: '6', amountOfIngredients: 3 },
-        { name: 'caipi', ingredients: ['ing1', 'ing2', 'ing3'], image: '', id: '4', amountOfIngredients: 1 }
-    ];
-    private result: Cocktail[];
+    private cocktails: Cocktail[] = []
+    private result: Cocktail[] = []
+    sort: Sort
+    cache: Map<Sort, any[]> = new Map
 
-    sort: Sort;
-    cache: Map<Sort, any[]>;
+    getCocktails(): Cocktail[] {
+        return this.cocktails
+    }
 
+    setCocktails(cocktails: Cocktail[]) {
+        this.cocktails = cocktails
+    }
+
+    size() {
+        return this.cocktails.length
+    }
+
+
+    getSort(sort: Sort) {
+
+        if (!this.cache.has(sort)) {
+            this.setSorting(sort)
+            return this.result
+        }
+        return this.cache.get(sort);
+    }
 
     setSorting(obj: Sort) {
         this.result = [...this.cocktails]
         this.sort = obj
 
-        //if (this.cache.has(obj)) return        
         const objKeys = Object.keys(obj) as Array<keyof Cocktail>;
 
-        let temp = this.sortByKeys(objKeys);
-        console.log(temp);
+        this.result = this.sortByKeys(objKeys)
+        this.cache.set(obj, this.result);
 
+        console.log(this.result)
     }
 
+
     sortBy(a: Cocktail, b: Cocktail, objKeys: Array<keyof Cocktail>, index: number): number {
-        console.log(objKeys[index])
+
         if (a[objKeys[index]] > b[objKeys[index]]) return 1;
         if (a[objKeys[index]] < b[objKeys[index]]) return -1;
         if (!objKeys[index]) return 0;
@@ -54,14 +66,6 @@ export default class CocktailList implements Ordenable {
         this.cocktails.push(cocktail);
         return cocktail;
     };
-
-
-
-    delete(id: number): void {
-
-    }
-
-
 
 }
 
