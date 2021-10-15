@@ -1,15 +1,15 @@
-import { addCocktail, registerUser, loginUser } from '../forms';
+import { addCocktail, registerUser, loginUser } from '../listener/forms';
 import { app } from "../index";
 
 interface CustomEvents {
-    name : string 
-    callback : Function
+    name: string
+    callback: Function
 }
 
 interface RouteInterface {
-    id : string 
-    htmlPage : string 
-    listeners : CustomEvents[]
+    id: string
+    htmlPage: string
+    listeners: CustomEvents[]
 }
 
 export default class Router {
@@ -17,43 +17,43 @@ export default class Router {
     private viewsExt = '.html'
 
     public constructor(options = {
-        viewsDir : '',
-        viewsExt : ''
+        viewsDir: '',
+        viewsExt: ''
     }) {
         if (options.viewsDir) this.viewsDir = this.viewsDir
         if (options.viewsExt) this.viewsDir = this.viewsExt
     }
 
-    private routes : RouteInterface[] = [
-        { 
-            id: '#/cocktails', 
-            htmlPage: 'cocktails', 
+    private routes: RouteInterface[] = [
+        {
+            id: '#/cocktails',
+            htmlPage: 'cocktails',
             listeners: [
                 {
-                    name : 'form-register',
+                    name: 'form-register',
                     callback: registerUser
-                }, 
+                },
                 {
-                    name : 'form-login',
+                    name: 'form-login',
                     callback: loginUser
-                }, 
+                },
                 {
-                    name : 'form-cocktails',
+                    name: 'form-cocktails',
                     callback: addCocktail
                 }
-            ] 
+            ]
         },
         {
-            id: '#/explanations', 
-            htmlPage: 'explanations', 
+            id: '#/explanations',
+            htmlPage: 'explanations',
             listeners: []
         }
     ];
 
     //*************** METHODS ***************************/
-    private getHTMLPage(route : RouteInterface): string | null {
+    private getHTMLPage(route: RouteInterface): string | null {
         let r = this.routes.find(r => route.id === r.id);
-        
+
         if (r) {
             return this.viewsDir + r.htmlPage + this.viewsExt
         }
@@ -61,22 +61,23 @@ export default class Router {
         return null
     }
 
-    private addListenterSubmit(route : RouteInterface) {        
-        route.listeners.forEach(listener => {           
+    private addListenterSubmit(route: RouteInterface) {
+        route.listeners.forEach(listener => {
             document
                 .getElementById(listener.name)
-                .addEventListener('submit', (e: Event)=>{listener.callback(e)})
+                .addEventListener('submit', (e: Event) => { listener.callback(e) })
         });
     }
 
-    findRoute(id : string) : RouteInterface {
+    findRoute(id: string): RouteInterface {
         return this.routes.find(route => route.id === id)
     }
 
     async loadPage(id: string) {
         let route = this.findRoute(id)
-        await app.loadContent(this.getHTMLPage(route))        
+        await app.loadContent(this.getHTMLPage(route))
         this.addListenterSubmit(route)
-        
+        if (id == '#/cocktails')
+            app.showCocktails()
     }
 }
