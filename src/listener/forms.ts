@@ -1,6 +1,8 @@
-import Cocktail from "./interfaces/CocktailInterface";
-import { app } from "./index";
-import User from "./entities/User";
+import Cocktail from "../interfaces/CocktailInterface";
+import { app } from "../index";
+import User from "../entities/User";
+
+
 
 
 export function addCocktail(event: Event): void {
@@ -10,7 +12,7 @@ export function addCocktail(event: Event): void {
     let ingredients: string = (<HTMLInputElement>document.getElementById('ingredients')).value;
     let ingredientsArray: string[] = ingredients.split(",");
     let imageUrl: string = (<HTMLInputElement>document.getElementById('image')).value;
-    let id: string = (app.cocktails.length + 1).toString();
+    let id: string = (app.cocktailsLenght() + 1).toString();
     let ingredientsSize: number = ingredientsArray.length;
 
     let cocktail: Cocktail = {
