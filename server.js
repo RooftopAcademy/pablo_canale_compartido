@@ -13,7 +13,7 @@ let cocktails = [
     { name: 'negroni', ingredients: ['ing1', 'ing2', 'ing3'], image: 'https://images.cocktailflow.com/v1/cocktail/w_300,h_540/cocktail_negroni-1.png', id: '101', amountOfIngredients: 2 },
     { name: 'negroni', ingredients: ['ing1', 'ing2', 'ing3'], image: 'https://images.cocktailflow.com/v1/cocktail/w_300,h_540/cocktail_negroni-1.png', id: '102', amountOfIngredients: 3 },
     { name: 'aperol', ingredients: ['ing1', 'ing2', 'ing3'], image: 'https://images.cocktailflow.com/v1/cocktail/w_300,h_540/cocktail_aperol_spritz-1.png', id: '1003', amountOfIngredients: 2 },
-    { name: 'caipi', ingredients: ['ing1', 'ing2', 'ing3'], image: 'https://images.cocktailflow.com/v1/cocktail/w_300,h_540/cocktail_caipiroshka-1.png', id: '104', amountOfIngredients: 2 },
+    { name: 'caipi', ingredients: ['ing1', 'ing2', 'ing3'], image: 'https://images.cocktailflow.com/v1/cocktail/w_300,h_540/cocktail_caipiroshka-1.png', id: '108', amountOfIngredients: 2 },
     { name: 'negroni', ingredients: ['ing1', 'ing2', 'ing3'], image: 'https://images.cocktailflow.com/v1/cocktail/w_300,h_540/cocktail_negroni-1.png', id: '105', amountOfIngredients: 2 },
     { name: 'caipi', ingredients: ['ing1', 'ing2', 'ing3'], image: 'https://images.cocktailflow.com/v1/cocktail/w_300,h_540/cocktail_caipiroshka-1.png', id: '106', amountOfIngredients: 3 },
     { name: 'caipi', ingredients: ['ing1', 'ing2', 'ing3'], image: 'https://images.cocktailflow.com/v1/cocktail/w_300,h_540/cocktail_caipiroshka-1.png', id: '104', amountOfIngredients: 1 }
