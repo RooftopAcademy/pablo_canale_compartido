@@ -10,12 +10,16 @@ export default class CocktailService {
     }
 
     async postCocktailApi(cocktail: Cocktail) {
+
         try {
-            let res: Response = await fetch(`${this._urlApi}/${cocktail.id}`, {
+            let res: Response = await fetch(`${this._urlApi}`, {
                 "method": "POST",
                 "headers": { "Content-type": "application/json" },
                 "body": JSON.stringify(cocktail)
-            });
+            })
+                ;
+            console.log(res)
+
         }
         catch (e) {
             app.showMessage(`Error postCocktail: ${e}`);
